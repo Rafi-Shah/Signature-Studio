@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Round Photo Maker (Rose Gold Border)</title>
+<style>
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;max-width:540px;margin:30px auto;padding:0 16px;color:#222;text-align:center;line-height:1.5}
+  .top-banner{background:#f6eaf9;border:1px solid #e9d5ff;padding:10px 14px;border-radius:8px;margin-bottom:20px;font-size:13px;display:flex;justify-content:space-between;align-items:center;text-align:left}
+  .top-banner a{color:#742F8A;font-weight:bold;text-decoration:none}
+  h2{color:#742F8A;margin-bottom:4px}
+  p.s{color:#555;margin-top:0;font-size:14px}
+  #cv{width:300px;height:300px;border:2px dashed #cbd5e1;border-radius:12px;cursor:grab;touch-action:none;background:#f8fafc}
+  #cv:active{cursor:grabbing}
+  .row{margin:14px 0}
+  input[type=range]{width:260px;vertical-align:middle;accent-color:#742F8A}
+  button,label.btn{display:inline-block;padding:10px 20px;background:#742F8A;color:#fff;border:0;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;margin:4px;transition:background 0.2s}
+  button:hover,label.btn:hover{background:#5d246f}
+  button:disabled{opacity:.4;cursor:default}
+  #file{display:none}
+  small{color:#64748b;font-size:12px;display:block;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="top-banner">
+  <span>Looking for the full suite with email signature generator?</span>
+  <a href="index.html">Open Full Website &rarr;</a>
+</div>
+
+<h2>Round Photo Maker</h2>
+<p class="s">Upload your photo, drag to center your face, use the zoom slider, then download your round avatar with a rose gold border.</p>
+
+<div class="row">
+  <label class="btn" for="file">Choose Photo</label>
+  <input type="file" id="file" accept="image/*">
+</div>
+
+<canvas id="cv" width="600" height="600"></canvas>
+
+<div class="row">Zoom: <input type="range" id="zoom" min="1" max="4" step="0.01" value="1" disabled></div>
+<div class="row"><button id="dl" disabled>Download PNG (300×300)</button></div>
+<small>The border is rendered directly inside the image, so it looks flawless across all email clients.</small>
+
+<script>
+var cv=document.getElementById('cv'), ctx=cv.getContext('2d'), S=600, RING=18;
+var img=null, base=1, zoom=1, ox=0, oy=0;
+var zoomEl=document.getElementById('zoom'), dl=document.getElementById('dl');
+
+function draw(c, size){
+  var k=size/S, x=c.getContext('2d');
+  x.clearRect(0,0,size,size);
+  x.save(); x.scale(k,k);
+  // rose-gold ring
+  var g=x.createLinearGradient(0,0,S,S);
+  g.addColorStop(0,'#F6CDC6'); g.addColorStop(.3,'#CD8484'); g.addColorStop(.55,'#B76E79');
+  g.addColorStop(.8,'#E8AAA0'); g.addColorStop(1,'#9C5B63');
+  x.beginPath(); x.arc(S/2,S/2,S/2,0,Math.PI*2); x.fillStyle=g; x.fill();
+  // photo
+  x.save(); x.beginPath(); x.arc(S/2,S/2,S/2-RING,0,Math.PI*2); x.clip();
+  if(img){
+    var sc=base*zoom, w=img.width*sc, h=img.height*sc;
+    x.drawImage(img, S/2-w/2+ox, S/2-h/2+oy, w, h);
+  } else { x.fillStyle='#f3f3f3'; x.fillRect(0,0,S,S); }
+  x.restore(); x.restore();
+}
+function clamp(){
+  var sc=base*zoom, w=img.width*sc, h=img.height*sc, inner=S-2*RING;
+  var mx=Math.max(0,(w-inner)/2), my=Math.max(0,(h-inner)/2);
+  ox=Math.max(-mx,Math.min(mx,ox)); oy=Math.max(-my,Math.min(my,oy));
+}
+function render(){ if(img) clamp(); draw(cv,S); }
+
+document.getElementById('file').onchange=function(e){
+  var f=e.target.files[0]; if(!f) return;
+  var im=new Image();
+  im.onload=function(){
+    img=im; var inner=S-2*RING;
+    base=Math.max(inner/im.width, inner/im.height);
+    zoom=1; zoomEl.value=1; ox=0; oy=0;
+    zoomEl.disabled=false; dl.disabled=false; render();
+  };
+  im.src=URL.createObjectURL(f);
+};
+zoomEl.oninput=function(){ zoom=parseFloat(zoomEl.value); render(); };
+cv.addEventListener('wheel',function(e){
+  if(!img) return; e.preventDefault();
+  zoom=Math.max(1,Math.min(4,zoom+(e.deltaY<0?0.08:-0.08))); zoomEl.value=zoom; render();
+},{passive:false});
+
+var drag=null;
+cv.addEventListener('pointerdown',function(e){ if(!img) return; drag={x:e.clientX,y:e.clientY,ox:ox,oy:oy}; cv.setPointerCapture(e.pointerId); });
+cv.addEventListener('pointermove',function(e){
+  if(!drag) return; var k=S/cv.getBoundingClientRect().width;
+  ox=drag.ox+(e.clientX-drag.x)*k; oy=drag.oy+(e.clientY-drag.y)*k; render();
+});
+cv.addEventListener('pointerup',function(){ drag=null; });
+
+dl.onclick=function(){
+  var out=document.createElement('canvas'); out.width=300; out.height=300;
+  out.getContext('2d').imageSmoothingQuality='high';
+  draw(out,300);
+  out.toBlob(function(b){
+    var a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download='photo-round.png'; a.click();
+  },'image/png');
+};
+render();
+</script>
+</body>
+</html>

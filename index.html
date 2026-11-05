@@ -1,0 +1,2969 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Signature Studio - Futuristic Email Signature & Avatar Suite</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ==================== THEME VARIABLES & DESIGN SYSTEM ==================== */
+  :root {
+    --primary: #8b5cf6;
+    --primary-hover: #7c3aed;
+    --primary-glow: rgba(139, 92, 246, 0.35);
+    --primary-light: rgba(139, 92, 246, 0.12);
+    --secondary: #06b6d4;
+    --secondary-glow: rgba(6, 182, 212, 0.3);
+    
+    /* Dark / Futuristic Cyber Theme (Default) */
+    --bg-base: #090d16;
+    --bg-surface: #0f172a;
+    --bg-card: rgba(15, 23, 42, 0.85);
+    --bg-glass: rgba(15, 23, 42, 0.7);
+    --border: rgba(255, 255, 255, 0.09);
+    --border-hover: rgba(139, 92, 246, 0.5);
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --text-subtle: #64748b;
+    --input-bg: rgba(2, 6, 23, 0.7);
+    --input-border: rgba(255, 255, 255, 0.12);
+    
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    
+    --shadow-card: 0 12px 30px -10px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--border);
+    --shadow-glow: 0 0 25px -5px var(--primary-glow);
+    --shadow-preview: 0 20px 40px -15px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  }
+
+  /* Light Futuristic Aesthetic Mode */
+  [data-theme="light"] {
+    --primary: #7c3aed;
+    --primary-hover: #6d28d9;
+    --primary-glow: rgba(124, 58, 237, 0.25);
+    --primary-light: #f5f3ff;
+    --secondary: #0284c7;
+    --secondary-glow: rgba(2, 132, 199, 0.2);
+    
+    --bg-base: #f8fafc;
+    --bg-surface: #ffffff;
+    --bg-card: #ffffff;
+    --bg-glass: rgba(255, 255, 255, 0.85);
+    --border: #e2e8f0;
+    --border-hover: rgba(124, 58, 237, 0.4);
+    --text-main: #0f172a;
+    --text-muted: #475569;
+    --text-subtle: #94a3b8;
+    --input-bg: #ffffff;
+    --input-border: #cbd5e1;
+    
+    --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.05);
+    --shadow-glow: 0 0 20px -5px var(--primary-glow);
+    --shadow-preview: 0 20px 35px -10px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0,0,0,0.06);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--bg-base);
+    color: var(--text-main);
+    line-height: 1.5;
+    padding-bottom: 70px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    background-image: 
+      radial-gradient(circle at 15% 10%, rgba(139, 92, 246, 0.12) 0%, transparent 40%),
+      radial-gradient(circle at 85% 60%, rgba(6, 182, 212, 0.08) 0%, transparent 45%);
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+
+  /* Header & Modern Futuristic Navbar */
+  header {
+    background: var(--bg-glass);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    transition: all 0.3s ease;
+  }
+  .header-container {
+    max-width: 1360px;
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+    color: var(--text-main);
+  }
+  .brand-logo-wrap {
+    position: relative;
+  }
+  .brand-logo {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-md);
+    background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 50%, #06b6d4 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 800;
+    font-size: 22px;
+    box-shadow: 0 4px 15px var(--primary-glow);
+    position: relative;
+    z-index: 2;
+  }
+  .brand-logo-wrap::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+    border-radius: 14px;
+    z-index: 1;
+    filter: blur(6px);
+    opacity: 0.6;
+  }
+  .brand-text h1 {
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, var(--text-main) 60%, var(--primary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .brand-pill {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    background: var(--primary-light);
+    color: var(--primary);
+    border: 1px solid var(--border-hover);
+    -webkit-text-fill-color: initial;
+  }
+  .brand-text p {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* Nav Tabs */
+  .nav-center {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .nav-tabs {
+    display: flex;
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    padding: 4px;
+    border-radius: var(--radius-md);
+    gap: 4px;
+  }
+  .nav-btn {
+    border: none;
+    background: transparent;
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .nav-btn:hover {
+    color: var(--text-main);
+  }
+  .nav-btn.active {
+    background: var(--bg-surface);
+    color: var(--primary);
+    box-shadow: 0 4px 14px rgba(124, 58, 237, 0.15);
+    border: 1px solid rgba(124, 58, 237, 0.3);
+  }
+  [data-theme="dark"] .nav-btn.active {
+    background: rgba(139, 92, 246, 0.15);
+    color: #c4b5fd;
+    border-color: rgba(139, 92, 246, 0.3);
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.25);
+  }
+
+  /* Theme Switcher Button */
+  .theme-toggle-btn {
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: all 0.2s ease;
+  }
+  .theme-toggle-btn:hover {
+    color: var(--primary);
+    border-color: var(--border-hover);
+    box-shadow: var(--shadow-glow);
+  }
+
+  /* Main Container */
+  .main-content {
+    max-width: 1360px;
+    margin: 26px auto 0;
+    padding: 0 24px;
+  }
+
+  /* Tab View Animation */
+  .tab-pane {
+    display: none;
+  }
+  .tab-pane.active {
+    display: block;
+    animation: futuristicFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes futuristicFadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* 2-Column Grid Layout */
+  .generator-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 28px;
+    align-items: start;
+  }
+  @media (max-width: 1024px) {
+    .generator-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Aesthetic Cards */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    margin-bottom: 22px;
+    box-shadow: var(--shadow-card);
+    backdrop-filter: blur(12px);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .card:hover {
+    border-color: var(--border-hover);
+  }
+  .card-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 18px;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 12px;
+  }
+  .card-title-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .card-icon-badge {
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius-sm);
+    background: var(--primary-light);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Form Elements */
+  .form-group {
+    margin-bottom: 16px;
+  }
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 600px) {
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+  }
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  label small {
+    font-weight: 400;
+    color: var(--text-subtle);
+  }
+  input[type="text"], input[type="email"], input[type="tel"], select {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--input-border);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-family: inherit;
+    background: var(--input-bg);
+    color: var(--text-main);
+    transition: all 0.2s ease;
+  }
+  input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus, select:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 3px var(--primary-glow);
+    background: var(--bg-surface);
+  }
+  .input-hint {
+    font-size: 11px;
+    color: var(--text-subtle);
+    margin-top: 5px;
+    line-height: 1.4;
+  }
+
+  /* Advanced Color Control Box */
+  .color-custom-box {
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 14px;
+    margin-bottom: 14px;
+  }
+  .color-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  input[type="color"] {
+    -webkit-appearance: none;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    width: 44px;
+    height: 40px;
+    cursor: pointer;
+    background: none;
+    padding: 2px;
+    flex-shrink: 0;
+  }
+  input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+  input[type="color"]::-webkit-color-swatch { border: none; border-radius: 6px; }
+  .hex-input {
+    width: 115px !important;
+    text-transform: uppercase;
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 13px !important;
+    padding: 8px 12px !important;
+  }
+  .color-presets-wrap {
+    display: flex;
+    gap: 7px;
+    flex-wrap: wrap;
+    margin-top: 6px;
+  }
+  .preset-dot {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .preset-dot:hover {
+    transform: scale(1.22);
+    box-shadow: 0 0 0 2px var(--primary);
+  }
+
+  /* 6 World-Class Layout Selector Grid */
+  .layout-selector {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  @media (max-width: 600px) {
+    .layout-selector {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  .layout-opt {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 12px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    background: var(--input-bg);
+    position: relative;
+    overflow: hidden;
+  }
+  .layout-opt:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-2px);
+    background: var(--bg-surface);
+  }
+  .layout-opt.active {
+    border-color: var(--primary);
+    background: var(--primary-light);
+    box-shadow: 0 0 0 1px var(--primary), var(--shadow-glow);
+  }
+  .layout-opt svg {
+    margin: 0 auto 6px;
+    display: block;
+    color: var(--primary);
+  }
+  .layout-opt span {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-main);
+  }
+  .layout-opt small {
+    display: block;
+    font-size: 10px;
+    color: var(--text-subtle);
+    margin-top: 2px;
+  }
+
+  /* Futuristic Sliders */
+  .size-control-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 12px;
+    padding: 8px 0;
+    border-bottom: 1px dashed var(--border);
+  }
+  .size-label {
+    flex: 1.2;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-main);
+  }
+  .size-label small {
+    display: block;
+    font-size: 11px;
+    color: var(--text-subtle);
+    font-weight: 400;
+  }
+  .size-slider-wrap {
+    flex: 2;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .size-slider-wrap input[type="range"] {
+    flex: 1;
+    height: 6px;
+    border-radius: 6px;
+    background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+    accent-color: var(--primary);
+    outline: none;
+    cursor: pointer;
+  }
+  .size-val-badge {
+    min-width: 50px;
+    text-align: right;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--primary);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* Sticky Preview Box */
+  .preview-wrapper {
+    position: sticky;
+    top: 86px;
+  }
+  .preview-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-preview);
+    backdrop-filter: blur(16px);
+  }
+  .preview-window-bar {
+    background: var(--input-bg);
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .window-dots {
+    display: flex;
+    gap: 7px;
+  }
+  .window-dots span {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .dot-red { background: #ef4444; }
+  .dot-yellow { background: #f59e0b; }
+  .dot-green { background: #10b981; }
+  .window-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+  }
+
+  /* Preview Client Theme Toggle (Light/Dark mail background tester) */
+  .preview-theme-toggle {
+    display: flex;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2px;
+    gap: 2px;
+  }
+  .preview-theme-btn {
+    border: none;
+    background: transparent;
+    padding: 3px 8px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .preview-theme-btn.active {
+    background: var(--primary);
+    color: white;
+  }
+
+  .preview-email-mockup {
+    padding: 16px 20px;
+    background: rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--text-muted);
+    transition: background-color 0.2s ease;
+  }
+  [data-theme="dark"] .preview-email-mockup {
+    background: rgba(2, 6, 23, 0.5);
+  }
+  .preview-email-mockup div {
+    margin-bottom: 4px;
+  }
+  .preview-body-container {
+    padding: 28px;
+    background: #ffffff;
+    min-height: 210px;
+    overflow-x: auto;
+    transition: background-color 0.25s ease;
+  }
+  .preview-body-container.dark-client {
+    background: #0f172a !important;
+  }
+  .preview-body-container.dark-client td[style*="color:#333333"],
+  .preview-body-container.dark-client a[style*="color:#333333"],
+  .preview-body-container.dark-client td[style*="color: #333333"],
+  .preview-body-container.dark-client a[style*="color: #333333"] {
+    color: #e2e8f0 !important;
+  }
+  .preview-body-container.dark-client div[style*="color:#475569"],
+  .preview-body-container.dark-client div[style*="color: #475569"] {
+    color: #94a3b8 !important;
+  }
+  .preview-body-container.dark-client table[style*="background:#ffffff"] {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+  }
+
+  /* Action Buttons */
+  .preview-actions {
+    padding: 16px 20px;
+    background: var(--input-bg);
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 18px;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: var(--radius-sm);
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    font-family: inherit;
+    text-decoration: none;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--primary) 0%, #7c3aed 50%, var(--secondary) 100%);
+    color: white;
+    box-shadow: 0 4px 15px var(--primary-glow);
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px var(--primary-glow);
+  }
+  .btn-secondary {
+    background: var(--bg-surface);
+    color: var(--text-main);
+    border: 1px solid var(--border);
+  }
+  .btn-secondary:hover {
+    background: var(--input-bg);
+    border-color: var(--border-hover);
+  }
+  .btn-sm {
+    padding: 6px 12px;
+    font-size: 12px;
+    border-radius: var(--radius-sm);
+  }
+
+  /* Animated Toast Notification */
+  .toast {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    background: var(--bg-surface);
+    color: var(--text-main);
+    padding: 14px 22px;
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 0 1px var(--border);
+    z-index: 1000;
+    transform: translateY(120%);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .toast.show {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  .toast.toast-success {
+    border-left: 5px solid #10b981;
+  }
+
+  /* Photo Cropper Section */
+  .cropper-card {
+    max-width: 720px;
+    margin: 0 auto;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    padding: 34px;
+    box-shadow: var(--shadow-card);
+    text-align: center;
+    backdrop-filter: blur(16px);
+  }
+  .canvas-wrapper {
+    position: relative;
+    display: inline-block;
+    margin: 18px 0;
+  }
+  #avatarCanvas {
+    width: 320px;
+    height: 320px;
+    border: 2px dashed var(--border-hover);
+    border-radius: 20px;
+    cursor: grab;
+    touch-action: none;
+    background: var(--input-bg);
+    box-shadow: inset 0 2px 10px rgba(0,0,0,0.15);
+  }
+  #avatarCanvas:active {
+    cursor: grabbing;
+  }
+  .cropper-controls {
+    max-width: 460px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  .border-style-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin: 12px 0 18px;
+  }
+  .border-badge {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 8px 4px;
+    font-size: 11px;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+    background: var(--input-bg);
+    color: var(--text-muted);
+    transition: all 0.15s;
+  }
+  .border-badge:hover {
+    background: var(--bg-surface);
+    color: var(--text-main);
+  }
+  .border-badge.active {
+    border-color: var(--primary);
+    background: var(--primary-light);
+    color: var(--primary);
+    box-shadow: var(--shadow-glow);
+  }
+
+  /* Guide Step Cards */
+  .guide-container {
+    max-width: 840px;
+    margin: 0 auto;
+  }
+  .step-card {
+    display: flex;
+    gap: 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 22px 26px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow-card);
+    backdrop-filter: blur(12px);
+  }
+  .step-number {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    font-weight: 800;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: var(--shadow-glow);
+  }
+  .step-content h3 {
+    font-size: 16px;
+    margin-bottom: 6px;
+    color: var(--text-main);
+  }
+  .step-content p {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* Futuristic Toggle Switches */
+  .switch-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 0;
+  }
+  .switch-row span {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-main);
+  }
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+  }
+  .switch input { opacity: 0; width: 0; height: 0; }
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: var(--input-border);
+    transition: .3s;
+    border-radius: 24px;
+  }
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 18px; width: 18px;
+    left: 3px; bottom: 3px;
+    background-color: white;
+    transition: .3s;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
+  input:checked + .slider { background-color: var(--primary); }
+  input:checked + .slider:before { transform: translateX(20px); }
+
+  /* Badges */
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 20px;
+    background: var(--input-bg);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+  }
+  .badge-purple {
+    background: var(--primary-light);
+    color: var(--primary);
+    border-color: var(--border-hover);
+  }
+  .badge-rec {
+    background: rgba(16, 185, 129, 0.12);
+    color: #10b981;
+    border-color: rgba(16, 185, 129, 0.3);
+  }
+
+  /* Futuristic Cyber Scrollbars */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--bg-base);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--input-border);
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+  }
+
+  /* Futuristic Pulse & Cyber Indicator Animations */
+  @keyframes cyberPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.55; transform: scale(1.12); }
+  }
+  .pulse-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #10b981;
+    display: inline-block;
+    box-shadow: 0 0 10px #10b981;
+    animation: cyberPulse 2s infinite ease-in-out;
+    vertical-align: middle;
+  }
+  .pulse-dot-cyan {
+    background: #06b6d4;
+    box-shadow: 0 0 10px #06b6d4;
+  }
+
+  /* Media Input Layout Helpers */
+  .media-input-wrap {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .media-input-btns {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  /* ==================== ADVANCED MOBILE RESPONSIVENESS ==================== */
+  .mobile-only {
+    display: none;
+  }
+  .mobile-floating-bar {
+    display: none;
+  }
+
+  @media (max-width: 1024px) {
+    .generator-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .preview-wrapper {
+      position: static;
+    }
+  }
+
+  @media (max-width: 768px) {
+    body {
+      overflow-x: hidden;
+      padding-bottom: 95px !important;
+    }
+    .header-container {
+      padding: 10px 14px;
+      gap: 12px;
+    }
+    .brand {
+      gap: 10px;
+    }
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      font-size: 18px;
+      border-radius: 10px;
+    }
+    .brand-text h1 {
+      font-size: 16px;
+      letter-spacing: -0.3px;
+    }
+    .brand-text p {
+      display: none;
+    }
+    .brand-pill {
+      font-size: 9px;
+      padding: 2px 6px;
+    }
+    .nav-center {
+      width: 100%;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .nav-tabs {
+      flex: 1;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .nav-tabs::-webkit-scrollbar {
+      display: none;
+    }
+    .nav-btn {
+      padding: 8px 10px;
+      font-size: 12px;
+      white-space: nowrap;
+      flex: 1;
+      justify-content: center;
+      gap: 6px;
+    }
+    .theme-toggle-btn {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+    }
+
+    /* Floating bottom quick action bar for mobile */
+    .mobile-floating-bar {
+      display: flex;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--bg-glass);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-top: 1px solid var(--border);
+      padding: 10px 14px;
+      gap: 10px;
+      z-index: 999;
+      box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.12);
+    }
+    .mobile-floating-bar .btn {
+      flex: 1;
+      font-size: 12.5px;
+      padding: 11px 12px;
+      border-radius: var(--radius-sm);
+    }
+    .mobile-only {
+      display: inline-flex !important;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .main-content {
+      padding: 0 12px;
+      margin-top: 14px;
+    }
+    .card {
+      padding: 16px 14px;
+      margin-bottom: 14px;
+      border-radius: var(--radius-md);
+    }
+    .card-title {
+      font-size: 14px;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+    }
+    .form-row {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    input[type="text"], input[type="email"], input[type="tel"], select {
+      font-size: 15px !important;
+      padding: 9px 12px;
+    }
+    .layout-selector {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    .layout-opt {
+      padding: 10px 6px;
+    }
+    .layout-opt svg {
+      width: 20px;
+      height: 20px;
+      margin-bottom: 4px;
+    }
+    .layout-opt span {
+      font-size: 11px;
+    }
+    .layout-opt small {
+      font-size: 9.5px;
+    }
+    .size-control-row {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 6px;
+      padding: 8px 0;
+    }
+    .size-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .size-slider-wrap {
+      width: 100%;
+    }
+    .media-input-wrap {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 8px;
+    }
+    .media-input-btns {
+      width: 100%;
+      display: flex;
+      gap: 8px;
+    }
+    .media-input-btns .btn {
+      flex: 1;
+      padding: 9px 10px;
+      font-size: 12px;
+      justify-content: center;
+    }
+    .preview-card {
+      border-radius: var(--radius-lg);
+    }
+    .preview-window-bar {
+      padding: 10px 12px;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .preview-window-bar .window-title {
+      font-size: 11px;
+    }
+    .preview-email-mockup {
+      padding: 10px 12px;
+      font-size: 12px;
+    }
+    .preview-body-container {
+      padding: 16px 8px;
+      min-height: 150px;
+    }
+    .preview-actions {
+      padding: 12px;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .preview-actions .btn {
+      width: 100%;
+      padding: 11px 14px;
+      font-size: 13px;
+    }
+    .cropper-card {
+      padding: 18px 14px;
+      border-radius: var(--radius-lg);
+    }
+    #avatarCanvas {
+      width: 100%;
+      max-width: 280px;
+      height: auto;
+      aspect-ratio: 1 / 1;
+    }
+    .border-style-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+    .step-card {
+      padding: 14px;
+      gap: 12px;
+    }
+    .step-number {
+      width: 32px;
+      height: 32px;
+      font-size: 15px;
+    }
+    .step-content h3 {
+      font-size: 14px;
+    }
+    .step-content p {
+      font-size: 13px;
+    }
+    .toast {
+      bottom: 78px;
+      right: 14px;
+      left: 14px;
+      padding: 10px 16px;
+      font-size: 13px;
+      justify-content: center;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Navigation Header with Cyber Glow -->
+  <header>
+    <div class="header-container">
+      <a href="#" class="brand" onclick="switchTab('generator'); return false;">
+        <div class="brand-logo-wrap">
+          <div class="brand-logo">S</div>
+        </div>
+        <div class="brand-text">
+          <h1>Signature Studio <span class="brand-pill"><span class="pulse-dot" style="width:6px;height:6px;margin-right:4px;"></span>v2.5 NextGen</span></h1>
+          <p>Futuristic Email Signature Architecture</p>
+        </div>
+      </a>
+
+      <div class="nav-center">
+        <nav class="nav-tabs">
+          <button class="nav-btn active" id="tabBtnGenerator" onclick="switchTab('generator')">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            Signature Studio
+          </button>
+          <button class="nav-btn" id="tabBtnCropper" onclick="switchTab('cropper')">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
+            Avatar Forge
+          </button>
+          <button class="nav-btn" id="tabBtnGuide" onclick="switchTab('guide')">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+            Setup Guide
+          </button>
+        </nav>
+
+        <!-- Futuristic Light / Dark Theme Switcher -->
+        <button type="button" class="theme-toggle-btn" onclick="toggleAppTheme()" title="Switch to Cyber Dark Mode">
+          <svg id="themeIconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg id="themeIconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Body Content -->
+  <main class="main-content">
+
+    <!-- ==================== TAB 1: SIGNATURE GENERATOR ==================== -->
+    <section id="tabGenerator" class="tab-pane active">
+      <div class="generator-grid">
+        
+        <!-- Left Column: Inputs & Controls -->
+        <div class="editor-col">
+
+          <!-- Top Quick Actions Bar -->
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+            <div style="font-size:13px; color:var(--text-muted); font-weight:500;">Configure pixel-perfect typography, colors, logos & dimensions below:</div>
+            <div style="display:flex; gap:8px;">
+              <button type="button" class="btn btn-secondary btn-sm" onclick="loadSampleData()">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7.5" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+                Load Sample
+              </button>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="clearAllData()">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                Clear All
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 1: Layout Selection (6 World-Class Designs) -->
+          <div class="card">
+            <div class="card-title">
+              <div class="card-title-left">
+                <div class="card-icon-badge">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                </div>
+                Signature Layout Architecture
+              </div>
+              <span class="badge badge-purple">6 Top Designs</span>
+            </div>
+            
+            <div class="layout-selector">
+              <div class="layout-opt active" id="layoutSide" onclick="setLayout('side')">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="8" y1="4" x2="8" y2="20"/></svg>
+                <span>Executive Side</span>
+                <small>Classic Divider</small>
+              </div>
+              <div class="layout-opt" id="layoutBanner" onclick="setLayout('banner')">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+                <span>Modern Banner</span>
+                <small>Header Accent Line</small>
+              </div>
+              <div class="layout-opt" id="layoutStripe" onclick="setLayout('stripe')">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="5" y1="4" x2="5" y2="20"/></svg>
+                <span>Left Stripe</span>
+                <small>Corporate Edge</small>
+              </div>
+              <div class="layout-opt" id="layoutCompact" onclick="setLayout('compact')">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="10" rx="2"/></svg>
+                <span>Minimalist</span>
+                <small>Clean & Sleek</small>
+              </div>
+              <div class="layout-opt" id="layoutCard" onclick="setLayout('card')">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="3"/><circle cx="7" cy="10" r="2.5"/><line x1="12" y1="8" x2="19" y2="8"/><line x1="12" y1="12" x2="19" y2="12"/><line x1="12" y1="16" x2="17" y2="16"/></svg>
+                <span>Badge Card</span>
+                <small>Horizontal Box</small>
+              </div>
+              <div class="layout-opt" id="layoutCentered" onclick="setLayout('centered')">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="7" r="3"/><line x1="6" y1="14" x2="18" y2="14"/><line x1="8" y1="18" x2="16" y2="18"/></svg>
+                <span>Centered Formal</span>
+                <small>Academic / Symmetry</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Colors & Typography (Custom Any Color + Extended Fonts) -->
+          <div class="card">
+            <div class="card-title">
+              <div class="card-title-left">
+                <div class="card-icon-badge">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg>
+                </div>
+                Color Palette & Typography
+              </div>
+              <span class="badge badge-rec">Any Hex Color Allowed</span>
+            </div>
+
+            <div class="form-row">
+              <!-- Primary Color Control -->
+              <div class="form-group">
+                <label>Primary Brand Color <small>(Name, dividers & icons)</small></label>
+                <div class="color-custom-box">
+                  <div class="color-input-wrapper">
+                    <input type="color" id="primaryColor" value="#742F8A" oninput="syncColorInput('primary', this.value)">
+                    <input type="text" id="primaryColorHex" class="hex-input" value="#742F8A" placeholder="#742F8A" maxlength="7" oninput="syncColorHex('primary', this.value)">
+                    <span style="font-size:11px; color:var(--text-subtle);">Custom Hex</span>
+                  </div>
+                  <div class="color-presets-wrap">
+                    <span class="preset-dot" style="background:#742F8A;" title="Royal Purple" onclick="setColor('primary', '#742F8A')"></span>
+                    <span class="preset-dot" style="background:#0152A1;" title="Navy Blue" onclick="setColor('primary', '#0152A1')"></span>
+                    <span class="preset-dot" style="background:#2563EB;" title="Electric Blue" onclick="setColor('primary', '#2563EB')"></span>
+                    <span class="preset-dot" style="background:#0284C7;" title="Ocean Cyan" onclick="setColor('primary', '#0284C7')"></span>
+                    <span class="preset-dot" style="background:#059669;" title="Emerald Green" onclick="setColor('primary', '#059669')"></span>
+                    <span class="preset-dot" style="background:#15803D;" title="Forest Green" onclick="setColor('primary', '#15803D')"></span>
+                    <span class="preset-dot" style="background:#DC2626;" title="Crimson Red" onclick="setColor('primary', '#DC2626')"></span>
+                    <span class="preset-dot" style="background:#EA580C;" title="Vibrant Orange" onclick="setColor('primary', '#EA580C')"></span>
+                    <span class="preset-dot" style="background:#D97706;" title="Amber Gold" onclick="setColor('primary', '#D97706')"></span>
+                    <span class="preset-dot" style="background:#4F46E5;" title="Indigo" onclick="setColor('primary', '#4F46E5')"></span>
+                    <span class="preset-dot" style="background:#DB2777;" title="Rose Pink" onclick="setColor('primary', '#DB2777')"></span>
+                    <span class="preset-dot" style="background:#1E293B;" title="Charcoal Slate" onclick="setColor('primary', '#1E293B')"></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Secondary Color Control -->
+              <div class="form-group">
+                <label>Secondary Accent Color <small>(Titles, subtitles & links)</small></label>
+                <div class="color-custom-box">
+                  <div class="color-input-wrapper">
+                    <input type="color" id="secondaryColor" value="#0152A1" oninput="syncColorInput('secondary', this.value)">
+                    <input type="text" id="secondaryColorHex" class="hex-input" value="#0152A1" placeholder="#0152A1" maxlength="7" oninput="syncColorHex('secondary', this.value)">
+                    <span style="font-size:11px; color:var(--text-subtle);">Custom Hex</span>
+                  </div>
+                  <div class="color-presets-wrap">
+                    <span class="preset-dot" style="background:#0152A1;" title="Navy" onclick="setColor('secondary', '#0152A1')"></span>
+                    <span class="preset-dot" style="background:#742F8A;" title="Purple" onclick="setColor('secondary', '#742F8A')"></span>
+                    <span class="preset-dot" style="background:#0284C7;" title="Sky Blue" onclick="setColor('secondary', '#0284C7')"></span>
+                    <span class="preset-dot" style="background:#059669;" title="Emerald" onclick="setColor('secondary', '#059669')"></span>
+                    <span class="preset-dot" style="background:#D97706;" title="Amber" onclick="setColor('secondary', '#D97706')"></span>
+                    <span class="preset-dot" style="background:#E11D48;" title="Coral" onclick="setColor('secondary', '#E11D48')"></span>
+                    <span class="preset-dot" style="background:#4F46E5;" title="Indigo" onclick="setColor('secondary', '#4F46E5')"></span>
+                    <span class="preset-dot" style="background:#475569;" title="Slate" onclick="setColor('secondary', '#475569')"></span>
+                    <span class="preset-dot" style="background:#64748B;" title="Cool Grey" onclick="setColor('secondary', '#64748B')"></span>
+                    <span class="preset-dot" style="background:#0D9488;" title="Teal" onclick="setColor('secondary', '#0D9488')"></span>
+                    <span class="preset-dot" style="background:#B45309;" title="Warm Bronze" onclick="setColor('secondary', '#B45309')"></span>
+                    <span class="preset-dot" style="background:#000000;" title="Deep Black" onclick="setColor('secondary', '#000000')"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Extended Font Family Dropdown -->
+            <div class="form-group" style="margin-bottom:0;">
+              <label>Universal Email-Safe Font Family</label>
+              <select id="fontFamily" onchange="renderSignature()">
+                <optgroup label="Modern Sans-Serif (Clean & Crisp)">
+                  <option value="Arial, Helvetica, sans-serif" selected>Arial (Standard Modern)</option>
+                  <option value="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Segoe UI (Sleek Windows / Contemporary)</option>
+                  <option value="Calibri, Candara, 'Segoe UI', sans-serif">Calibri (Corporate Business Standard)</option>
+                  <option value="'Trebuchet MS', 'Lucida Sans Unicode', sans-serif">Trebuchet MS (Friendly & Contemporary)</option>
+                  <option value="Verdana, Geneva, sans-serif">Verdana (Crisp & High Readability)</option>
+                  <option value="Tahoma, Verdana, Segoe, sans-serif">Tahoma (Compact & Neat)</option>
+                  <option value="'Century Gothic', CenturyGothic, AppleGothic, sans-serif">Century Gothic (Geometric & Elegant)</option>
+                  <option value="'Lucida Sans', 'Lucida Grande', sans-serif">Lucida Sans (Modern Balance)</option>
+                </optgroup>
+                <optgroup label="Classic & Editorial Serif (Prestigious & Formal)">
+                  <option value="'Times New Roman', Times, serif">Times New Roman (Academic & Formal)</option>
+                  <option value="Georgia, serif">Georgia (Warm & Editorial Serif)</option>
+                  <option value="Garamond, 'Baskerville', 'Times New Roman', serif">Garamond (Classic Literary)</option>
+                  <option value="Palatino, 'Palatino Linotype', 'Book Antiqua', serif">Palatino (Refined Book Serif)</option>
+                  <option value="'Bookman Old Style', Georgia, serif">Bookman (Authoritative & Warm)</option>
+                </optgroup>
+                <optgroup label="Tech & Developer (Monospace)">
+                  <option value="Consolas, 'Courier New', Courier, monospace">Consolas (Developer Monospace)</option>
+                  <option value="'Courier New', Courier, monospace">Courier New (Classic Typewriter)</option>
+                </optgroup>
+                <optgroup label="System Native">
+                  <option value="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">System Native (Apple, Android, Windows UI)</option>
+                </optgroup>
+              </select>
+            </div>
+          </div>
+
+          <!-- Card 3: Size & Dimension Customizer (Text, Photo, Logo, Spacing) -->
+          <div class="card">
+            <div class="card-title">
+              <div class="card-title-left">
+                <div class="card-icon-badge">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
+                </div>
+                Precision Dimension Engine
+              </div>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="resetSizesToRecommended()" title="Restore recommended default sizes">
+                Reset to Recommended
+              </button>
+            </div>
+
+            <!-- Profile Photo Size Slider -->
+            <div class="size-control-row">
+              <div class="size-label">
+                Profile Photo Size
+                <small>Recommended: 110px</small>
+              </div>
+              <div class="size-slider-wrap">
+                <input type="range" id="sizePhoto" min="60" max="160" step="5" value="110" oninput="updateSizeVal('sizePhoto', this.value, 'px')">
+                <span class="size-val-badge" id="val_sizePhoto">110px</span>
+              </div>
+            </div>
+
+            <!-- Organization Logo Size Slider -->
+            <div class="size-control-row">
+              <div class="size-label">
+                Organization Logo Width
+                <small>Recommended: 90px</small>
+              </div>
+              <div class="size-slider-wrap">
+                <input type="range" id="sizeLogo" min="50" max="180" step="5" value="90" oninput="updateSizeVal('sizeLogo', this.value, 'px')">
+                <span class="size-val-badge" id="val_sizeLogo">90px</span>
+              </div>
+            </div>
+
+            <!-- Name Font Size Slider -->
+            <div class="size-control-row">
+              <div class="size-label">
+                Name Typography Size
+                <small>Recommended: 19px</small>
+              </div>
+              <div class="size-slider-wrap">
+                <input type="range" id="sizeName" min="14" max="28" step="1" value="19" oninput="updateSizeVal('sizeName', this.value, 'px')">
+                <span class="size-val-badge" id="val_sizeName">19px</span>
+              </div>
+            </div>
+
+            <!-- Title Font Size Slider -->
+            <div class="size-control-row">
+              <div class="size-label">
+                Job Title Size
+                <small>Recommended: 13px</small>
+              </div>
+              <div class="size-slider-wrap">
+                <input type="range" id="sizeTitle" min="10" max="20" step="1" value="13" oninput="updateSizeVal('sizeTitle', this.value, 'px')">
+                <span class="size-val-badge" id="val_sizeTitle">13px</span>
+              </div>
+            </div>
+
+            <!-- Contact Font Size Slider -->
+            <div class="size-control-row">
+              <div class="size-label">
+                Contact Rows Font Size
+                <small>Recommended: 13px</small>
+              </div>
+              <div class="size-slider-wrap">
+                <input type="range" id="sizeContact" min="10" max="16" step="1" value="13" oninput="updateSizeVal('sizeContact', this.value, 'px')">
+                <span class="size-val-badge" id="val_sizeContact">13px</span>
+              </div>
+            </div>
+
+            <!-- Social Icon Size Slider -->
+            <div class="size-control-row">
+              <div class="size-label">
+                Social Media Icons Size
+                <small>Recommended: 20px</small>
+              </div>
+              <div class="size-slider-wrap">
+                <input type="range" id="sizeSocial" min="16" max="32" step="2" value="20" oninput="updateSizeVal('sizeSocial', this.value, 'px')">
+                <span class="size-val-badge" id="val_sizeSocial">20px</span>
+              </div>
+            </div>
+
+            <!-- Border / Line Thickness Slider -->
+            <div class="size-control-row" style="border-bottom:none; margin-bottom:0;">
+              <div class="size-label">
+                Accent Divider Thickness
+                <small>Recommended: 2px</small>
+              </div>
+              <div class="size-slider-wrap">
+                <input type="range" id="sizeDivider" min="1" max="6" step="1" value="2" oninput="updateSizeVal('sizeDivider', this.value, 'px')">
+                <span class="size-val-badge" id="val_sizeDivider">2px</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4: Personal & Professional Details -->
+          <div class="card">
+            <h3 class="card-title">
+              <div class="card-title-left">
+                <div class="card-icon-badge">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </div>
+                Professional Identity
+              </div>
+            </h3>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" placeholder="e.g. John Doe">
+              </div>
+              <div class="form-group">
+                <label for="jobTitle">Job Title / Designation</label>
+                <input type="text" id="jobTitle" placeholder="e.g. Senior Project Manager">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="department">Department / Subtitle <small>(Optional)</small></label>
+                <input type="text" id="department" placeholder="e.g. Product Design / Technology">
+              </div>
+              <div class="form-group">
+                <label for="company">Company / Organization</label>
+                <input type="text" id="company" placeholder="e.g. Acme Corporation or Apex Technologies">
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 5: Contact Information -->
+          <div class="card">
+            <h3 class="card-title">
+              <div class="card-title-left">
+                <div class="card-icon-badge">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </div>
+                Contact Channels
+              </div>
+            </h3>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="phone">Primary Phone</label>
+                <input type="tel" id="phone" placeholder="e.g. +1 (555) 234-5678">
+              </div>
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="e.g. yourname@example.com">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="website">Website URL <small>(Optional)</small></label>
+                <input type="text" id="website" placeholder="e.g. https://www.example.com">
+              </div>
+              <div class="form-group">
+                <label for="address">Location / Address <small>(Optional)</small></label>
+                <input type="text" id="address" placeholder="e.g. San Francisco, CA, USA">
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 6: Photos & Logos (Direct Upload + Smart Link Support) -->
+          <div class="card">
+            <h3 class="card-title">
+              <div class="card-title-left">
+                <div class="card-icon-badge">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                </div>
+                Media & Branding Assets
+              </div>
+            </h3>
+
+            <!-- Profile Photo Section -->
+            <div class="form-group">
+              <div class="switch-row">
+                <span>Display Profile Photo</span>
+                <label class="switch">
+                  <input type="checkbox" id="showPhoto" checked onchange="renderSignature()">
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+              <!-- Hidden Direct Photo File Input -->
+              <input type="file" id="photoDirectFileInput" accept="image/*" style="display:none;" onchange="handleDirectPhotoUpload(event)">
+
+              <label for="photoUrl" style="margin-top:10px;">Profile Photo <small>(Direct Link or Upload from Computer)</small></label>
+              <div class="media-input-wrap">
+                <input type="text" id="photoUrl" placeholder="Paste image URL or Google Drive share link" oninput="handlePhotoUrlInput()">
+                <div class="media-input-btns">
+                  <button type="button" class="btn btn-secondary btn-sm" onclick="document.getElementById('photoDirectFileInput').click()" title="Upload photo file from computer">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                    Upload
+                  </button>
+                  <button type="button" class="btn btn-secondary btn-sm" onclick="switchTab('cropper')" title="Crop and make round photo with metallic border">
+                    Crop Avatar
+                  </button>
+                </div>
+              </div>
+
+              <!-- Photo Status & Live Thumbnail -->
+              <div id="photoStatusPreview" style="display:none; align-items:center; gap:12px; background:var(--input-bg); border:1px solid var(--border); padding:8px 12px; border-radius:var(--radius-sm); margin-top:8px;">
+                <img id="photoThumbImg" src="" style="width:40px; height:40px; border-radius:50%; object-fit:cover; border:1px solid var(--border); flex-shrink:0;">
+                <div style="flex:1; font-size:12px;" id="photoStatusText"></div>
+                <button type="button" class="btn btn-secondary btn-sm" style="padding:4px 8px; font-size:11px;" onclick="removePhoto()">Remove</button>
+              </div>
+            </div>
+
+            <!-- Organization Logo Section -->
+            <div class="form-group" style="margin-top:20px; padding-top:16px; border-top:1px dashed var(--border);">
+              <div class="switch-row">
+                <span>Display Organization Logo</span>
+                <label class="switch">
+                  <input type="checkbox" id="showLogo" checked onchange="renderSignature()">
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+              <!-- Hidden Direct Logo File Input -->
+              <input type="file" id="logoDirectFileInput" accept="image/*" style="display:none;" onchange="handleDirectLogoUpload(event)">
+
+              <label for="logoUrl" style="margin-top:10px;">Logo <small>(Direct Link or Upload from Computer)</small></label>
+              <div class="media-input-wrap">
+                <input type="text" id="logoUrl" placeholder="Paste image link, Google Drive link, or upload file" oninput="handleLogoUrlInput()">
+                <div class="media-input-btns">
+                  <button type="button" class="btn btn-primary btn-sm" onclick="document.getElementById('logoDirectFileInput').click()" title="Upload logo file from your computer">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                    Upload Logo
+                  </button>
+                </div>
+              </div>
+
+              <!-- Logo Status & Live Thumbnail -->
+              <div id="logoStatusPreview" style="display:none; align-items:center; gap:12px; background:var(--input-bg); border:1px solid var(--border); padding:8px 12px; border-radius:var(--radius-sm); margin-top:8px;">
+                <img id="logoThumbImg" src="" style="width:40px; height:40px; object-fit:contain; border:1px solid var(--border); background:#ffffff; border-radius:6px; flex-shrink:0;">
+                <div style="flex:1; font-size:12px;" id="logoStatusText"></div>
+                <button type="button" class="btn btn-secondary btn-sm" style="padding:4px 8px; font-size:11px;" onclick="removeLogo()">Remove</button>
+              </div>
+
+              <p class="input-hint" style="margin-top:8px;">
+                💡 <strong>Instant Support:</strong> Paste any direct link, Google Drive link, or click <strong>"Upload Logo"</strong> to choose your logo directly from your computer!
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 7: Social Media Links -->
+          <div class="card">
+            <h3 class="card-title">
+              <div class="card-title-left">
+                <div class="card-icon-badge">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                </div>
+                Social Media Links
+              </div>
+              <span class="badge badge-purple">GitHub & WhatsApp Supported</span>
+            </h3>
+            <p style="font-size:12px; color:var(--text-subtle); margin-bottom:14px;">Leave any field empty to automatically omit its icon from your signature.</p>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="socialLinkedIn">LinkedIn Profile URL</label>
+                <input type="text" id="socialLinkedIn" placeholder="e.g. https://www.linkedin.com/in/username">
+              </div>
+              <div class="form-group">
+                <label for="socialGithub">GitHub Profile URL</label>
+                <input type="text" id="socialGithub" placeholder="e.g. https://github.com/username">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="socialFacebook">Facebook Profile / Page URL</label>
+                <input type="text" id="socialFacebook" placeholder="e.g. https://www.facebook.com/username">
+              </div>
+              <div class="form-group">
+                <label for="socialTwitter">X (Twitter) URL</label>
+                <input type="text" id="socialTwitter" placeholder="e.g. https://x.com/username">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="socialInstagram">Instagram URL</label>
+                <input type="text" id="socialInstagram" placeholder="e.g. https://instagram.com/username">
+              </div>
+              <div class="form-group">
+                <label for="socialYoutube">YouTube Channel URL</label>
+                <input type="text" id="socialYoutube" placeholder="e.g. https://youtube.com/@channel">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="socialWhatsapp">WhatsApp Number / Link <small>(Optional)</small></label>
+              <input type="text" id="socialWhatsapp" placeholder="e.g. https://wa.me/15551234567 or +15551234567">
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Column: Sticky Live Preview & Export -->
+        <div class="preview-col">
+          <div class="preview-wrapper">
+            
+            <div class="preview-card" id="previewCardWrapper">
+              <!-- Mockup Email Window Top Bar -->
+              <div class="preview-window-bar">
+                <div class="window-dots">
+                  <span class="dot-red"></span>
+                  <span class="dot-yellow"></span>
+                  <span class="dot-green"></span>
+                </div>
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <span class="pulse-dot" style="width:7px; height:7px;"></span>
+                  <span class="window-title">Real-Time Mail Engine</span>
+                </div>
+                
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <button type="button" class="btn btn-secondary btn-sm mobile-only" onclick="scrollToEditor()" style="padding:4px 8px; font-size:11px;" title="Scroll up to edit inputs">
+                    ⬆ Top
+                  </button>
+                  <!-- Dark / Light Mail Client Background Tester -->
+                  <div class="preview-theme-toggle" title="Test signature appearance on Light vs Dark email client backgrounds">
+                    <button type="button" class="preview-theme-btn active" id="btnLightClient" onclick="setClientBackground('light')">☀️ Light</button>
+                    <button type="button" class="preview-theme-btn" id="btnDarkClient" onclick="setClientBackground('dark')">🌙 Dark</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Fake Email Header Details -->
+              <div class="preview-email-mockup">
+                <div><strong>To:</strong> partner@organization.com</div>
+                <div><strong>Subject:</strong> Updated Proposal & Strategy Alignment</div>
+                <div style="margin-top: 10px; font-style:italic;">
+                  Hi team,<br><br>
+                  Thank you for the quick turnaround. Please find the finalized signature details below.<br><br>
+                  Best regards,
+                </div>
+              </div>
+
+              <!-- Live Render Target Area -->
+              <div class="preview-body-container" id="previewContainer">
+                <div id="previewArea">
+                  <!-- Signature renders here via JS -->
+                </div>
+              </div>
+
+              <!-- Action Controls -->
+              <div class="preview-actions">
+                <button type="button" class="btn btn-primary" id="btnCopySignature" onclick="copySignatureToClipboard()" style="flex:1.4;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  Copy Signature
+                </button>
+
+                <button type="button" class="btn btn-secondary" onclick="copyHtmlSource()" title="Copy raw HTML source code">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                  HTML
+                </button>
+
+                <button type="button" class="btn btn-secondary" onclick="downloadHtmlSignatureFile()" title="Download as .html file">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  Export
+                </button>
+              </div>
+            </div>
+
+            <!-- Helpful Hints Box below preview -->
+            <div style="margin-top:16px; background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-lg); padding:16px 20px; font-size:13px; color:var(--text-muted); line-height:1.6; box-shadow:var(--shadow-card);">
+              <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+                <span style="font-size:16px;">✨</span>
+                <strong style="color:var(--text-main);">Verified Compatibility:</strong>
+              </div>
+              Click <strong>"Copy Signature"</strong> above, then open Gmail Settings ➔ General ➔ Signature ➔ Paste (Ctrl + V / Cmd + V) directly into the box. Perfect for Gmail, Outlook & Apple Mail!
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== TAB 2: ROUND PHOTO MAKER ==================== -->
+    <section id="tabCropper" class="tab-pane">
+      <div class="cropper-card">
+        <h2 style="font-size:24px; color:var(--text-main); margin-bottom:6px; font-weight:800;">Avatar Forge & Round Photo Studio</h2>
+        <p style="color:var(--text-muted); font-size:14px; margin-bottom:22px;">
+          Upload your portrait, drag and zoom to center your face, choose a metallic border, then download or apply directly.
+        </p>
+
+        <!-- Hidden File Input -->
+        <input type="file" id="cropperFileInput" accept="image/*" style="display:none;" onchange="handleImageUpload(event)">
+        
+        <div style="margin-bottom:14px;">
+          <button type="button" class="btn btn-primary" onclick="document.getElementById('cropperFileInput').click()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Choose Photo from Computer
+          </button>
+        </div>
+
+        <!-- Canvas -->
+        <div class="canvas-wrapper">
+          <canvas id="avatarCanvas" width="600" height="600"></canvas>
+        </div>
+
+        <div class="cropper-controls">
+          <!-- Zoom Slider -->
+          <div class="size-control-row" style="border-bottom:none;">
+            <div class="size-label">
+              Precision Zoom
+              <small>Use slider or mouse wheel</small>
+            </div>
+            <div class="size-slider-wrap">
+              <input type="range" id="zoomRange" min="1" max="4" step="0.01" value="1" disabled oninput="handleZoomInput(this.value)">
+              <span id="zoomVal" class="size-val-badge">1.0x</span>
+            </div>
+          </div>
+
+          <!-- Border Style Selector -->
+          <label style="margin-top:10px;">Select Metallic Border Theme</label>
+          <div class="border-style-grid">
+            <div class="border-badge active" onclick="setBorderTheme('rosegold')">Rose Gold</div>
+            <div class="border-badge" onclick="setBorderTheme('gold')">Classic Gold</div>
+            <div class="border-badge" onclick="setBorderTheme('purple')">Royal Purple</div>
+            <div class="border-badge" onclick="setBorderTheme('blue')">Ocean Navy</div>
+            <div class="border-badge" onclick="setBorderTheme('silver')">Silver Metal</div>
+            <div class="border-badge" onclick="setBorderTheme('solid')">Primary Solid</div>
+            <div class="border-badge" onclick="setBorderTheme('none')">No Border</div>
+          </div>
+
+          <!-- Actions -->
+          <div style="display:flex; flex-direction:column; gap:10px; margin-top:20px;">
+            <button type="button" class="btn btn-primary" id="btnApplyToSig" disabled onclick="applyCroppedPhotoToSignature()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Apply Directly to Signature Studio
+            </button>
+            <div style="display:flex; gap:10px;">
+              <button type="button" class="btn btn-secondary" id="btnDownload300" disabled onclick="downloadCroppedAvatar(300)" style="flex:1;">
+                Download PNG (300×300)
+              </button>
+              <button type="button" class="btn btn-secondary" id="btnDownload600" disabled onclick="downloadCroppedAvatar(600)" style="flex:1;">
+                Download HD (600×600)
+              </button>
+            </div>
+          </div>
+
+          <p style="font-size:12px; color:var(--text-subtle); text-align:center; margin-top:14px;">
+            The circular crop and border are baked directly into the PNG file, ensuring perfect display across all email applications.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== TAB 3: SETUP GUIDE ==================== -->
+    <section id="tabGuide" class="tab-pane">
+      <div class="guide-container">
+        
+        <div style="text-align:center; margin-bottom:30px;">
+          <h2 style="font-size:26px; color:var(--text-main); margin-bottom:6px; font-weight:800;">Install Signature in Gmail in 60 Seconds</h2>
+          <p style="color:var(--text-muted); font-size:15px;">Follow these easy steps to install your professional signature with pixel-perfect alignment.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Generate & Copy Your Signature</h3>
+            <p>Customize your personal information, colors, logo, and layout on the <strong>Signature Studio</strong> tab, then click the <strong>"Copy Signature"</strong> button.</p>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Open Gmail Settings</h3>
+            <p>Open <a href="https://mail.google.com" target="_blank" style="color:var(--primary); text-decoration:none; font-weight:700;">Gmail</a> on your computer. In the top right corner, click the <strong>Settings icon (⚙️)</strong>, then click <strong>"See all settings"</strong>.</p>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Navigate to the Signature Section</h3>
+            <p>In the <strong>General</strong> tab, scroll down until you find the <strong>Signature</strong> section. Click <strong>"+ Create new"</strong> and give your signature a name (e.g. <em>Work Signature</em>).</p>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>Paste Your Signature</h3>
+            <p>Click inside the signature text editing box on the right. Press <strong>Ctrl + V</strong> (or <strong>Cmd + V</strong> on Mac) to paste. Your signature will appear with all logos, styling, and clickable links intact.</p>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">5</div>
+          <div class="step-content">
+            <h3>Set Defaults & Save</h3>
+            <p>Under <strong>Signature defaults</strong>, set your new signature for <em>"For new emails use"</em> and <em>"On reply/forward use"</em>. Scroll to the bottom of the page and click <strong>"Save Changes"</strong>. That's it!</p>
+          </div>
+        </div>
+
+        <!-- Pro Tips Card -->
+        <div class="card" style="margin-top:24px; background:var(--primary-light); border-color:var(--border-hover);">
+          <h3 class="card-title" style="color:var(--primary); border-color:rgba(139, 92, 246, 0.2);">
+            <div class="card-title-left">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+              Direct Computer Upload vs Google Drive
+            </div>
+          </h3>
+          <p style="font-size:13px; color:var(--text-main); line-height:1.6;">
+            You can either paste public Google Drive links or directly click <strong>"Upload Logo"</strong> / <strong>"Upload Photo"</strong> from your computer. Our engine supports both methods seamlessly with instant fallback resolution.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Animated Toast Notification Popup -->
+  <div id="toastNotification" class="toast">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0; color:#10b981;"><polyline points="20 6 9 17 4 12"/></svg>
+    <span id="toastMessage">Signature copied to clipboard!</span>
+  </div>
+
+  <!-- Floating Mobile Quick Action Bar (Visible only on phone & tablet) -->
+  <div class="mobile-floating-bar" id="mobileFloatingBar">
+    <button type="button" class="btn btn-secondary" onclick="scrollToPreview()">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      View Preview
+    </button>
+    <button type="button" class="btn btn-primary" onclick="copySignatureToClipboard()">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copy Signature
+    </button>
+  </div>
+
+  <!-- Application Logic -->
+  <script>
+    // Recommended default sizes
+    const RECOMMENDED_SIZES = {
+      photo: 110,
+      logo: 90,
+      name: 19,
+      title: 13,
+      contact: 13,
+      social: 20,
+      divider: 2
+    };
+
+    // State
+    const state = {
+      layout: 'side', // 'side', 'banner', 'stripe', 'compact', 'card', 'centered'
+      primaryColor: '#742F8A',
+      secondaryColor: '#0152A1',
+      fontFamily: "Arial, Helvetica, sans-serif",
+      showPhoto: true,
+      showLogo: true,
+      customAvatarBase64: '',
+      customLogoBase64: '',
+      clientBg: 'light', // 'light' or 'dark'
+      sizes: { ...RECOMMENDED_SIZES }
+    };
+
+    // Built-in Email-Safe Social Icons (reliable CDN PNGs for maximum email client compatibility)
+    const socialIcons = {
+      linkedin: 'https://cdn-icons-png.flaticon.com/32/3536/3536505.png',
+      github: 'https://cdn-icons-png.flaticon.com/32/25/25231.png',
+      facebook: 'https://cdn-icons-png.flaticon.com/32/733/733547.png',
+      twitter: 'https://cdn-icons-png.flaticon.com/32/5968/5968830.png',
+      instagram: 'https://cdn-icons-png.flaticon.com/32/2111/2111463.png',
+      youtube: 'https://cdn-icons-png.flaticon.com/32/1384/1384060.png',
+      whatsapp: 'https://cdn-icons-png.flaticon.com/32/733/733585.png'
+    };
+
+    // Extract Google Drive ID safely across all Google Drive link variations
+    function extractDriveId(val) {
+      if (!val) return '';
+      val = val.trim();
+      const m = val.match(/\/file\/d\/([A-Za-z0-9_-]+)/)
+             || val.match(/\/d\/([A-Za-z0-9_-]+)/)
+             || val.match(/[?&]id=([A-Za-z0-9_-]+)/);
+      if (m) return m[1];
+      if (/^[A-Za-z0-9_-]{20,}$/.test(val) && !val.includes('/') && !val.includes('.')) return val;
+      return '';
+    }
+
+    // Google Drive & Cloud URL Smart Parser (uses Google Fife CDN directly for HTTP 200 image/png)
+    function parseImageUrl(val) {
+      if (!val) return '';
+      val = val.trim();
+      if (val.startsWith('data:image/')) return val;
+      
+      const driveId = extractDriveId(val);
+      if (driveId) {
+        return `https://lh3.googleusercontent.com/d/${driveId}`;
+      }
+
+      if (val.includes('dropbox.com')) {
+        return val.replace('?dl=0', '?raw=1').replace('&dl=0', '&raw=1');
+      }
+
+      return val;
+    }
+
+    // Multi-strategy image error fallback for Google Drive links
+    function handleImgError(el) {
+      const driveId = el.getAttribute('data-drive-id');
+      const step = parseInt(el.getAttribute('data-err-step') || '0', 10);
+      if (driveId) {
+        if (step === 0) {
+          el.setAttribute('data-err-step', '1');
+          el.src = 'https://drive.usercontent.google.com/download?id=' + driveId + '&export=view';
+          return;
+        } else if (step === 1) {
+          el.setAttribute('data-err-step', '2');
+          el.src = 'https://drive.google.com/uc?export=view&id=' + driveId;
+          return;
+        }
+      }
+    }
+
+    // HTML Escape Helper
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    // Tab Switcher
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+
+      if (tabId === 'generator') {
+        document.getElementById('tabGenerator').classList.add('active');
+        document.getElementById('tabBtnGenerator').classList.add('active');
+      } else if (tabId === 'cropper') {
+        document.getElementById('tabCropper').classList.add('active');
+        document.getElementById('tabBtnCropper').classList.add('active');
+        renderCanvas();
+      } else if (tabId === 'guide') {
+        document.getElementById('tabGuide').classList.add('active');
+        document.getElementById('tabBtnGuide').classList.add('active');
+      }
+
+      // Hide mobile floating bar on non-generator tabs
+      const floatBar = document.getElementById('mobileFloatingBar');
+      if (floatBar) {
+        floatBar.style.display = tabId === 'generator' ? '' : 'none';
+      }
+    }
+
+    // Theme Switcher (Strictly starts in Light Mode as requested, switches to Dark Mode when toggled)
+    function toggleAppTheme() {
+      const current = document.documentElement.getAttribute('data-theme') || 'light';
+      const target = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', target);
+      
+      const sunIcon = document.getElementById('themeIconSun');
+      const moonIcon = document.getElementById('themeIconMoon');
+      const toggleBtn = document.querySelector('.theme-toggle-btn');
+      
+      if (target === 'dark') {
+        if (sunIcon) sunIcon.style.display = 'block';
+        if (moonIcon) moonIcon.style.display = 'none';
+        if (toggleBtn) toggleBtn.setAttribute('title', 'Switch to Futuristic Light Mode');
+        showToast('Switched to Cyber Dark Mode', 'info');
+      } else {
+        if (sunIcon) sunIcon.style.display = 'none';
+        if (moonIcon) moonIcon.style.display = 'block';
+        if (toggleBtn) toggleBtn.setAttribute('title', 'Switch to Cyber Dark Mode');
+        showToast('Switched to Futuristic Light Mode', 'info');
+      }
+    }
+
+    // Smooth Mobile View Navigation
+    function scrollToPreview() {
+      const el = document.getElementById('previewCardWrapper');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+    function scrollToEditor() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Preview Background Client Switcher (Light Mail vs Dark Mail testing)
+    function setClientBackground(mode) {
+      state.clientBg = mode;
+      const container = document.getElementById('previewContainer');
+      const btnLight = document.getElementById('btnLightClient');
+      const btnDark = document.getElementById('btnDarkClient');
+      
+      if (mode === 'dark') {
+        container.classList.add('dark-client');
+        btnDark.classList.add('active');
+        btnLight.classList.remove('active');
+      } else {
+        container.classList.remove('dark-client');
+        btnLight.classList.add('active');
+        btnDark.classList.remove('active');
+      }
+    }
+
+    // Layout Setter
+    function setLayout(style) {
+      state.layout = style;
+      document.querySelectorAll('.layout-opt').forEach(el => el.classList.remove('active'));
+      const map = {
+        'side': 'layoutSide',
+        'banner': 'layoutBanner',
+        'stripe': 'layoutStripe',
+        'compact': 'layoutCompact',
+        'card': 'layoutCard',
+        'centered': 'layoutCentered'
+      };
+      if (map[style]) {
+        document.getElementById(map[style]).classList.add('active');
+      }
+      renderSignature();
+    }
+
+    // Color Inputs Synchronization
+    function syncColorInput(target, hex) {
+      if (target === 'primary') {
+        state.primaryColor = hex;
+        document.getElementById('primaryColorHex').value = hex.toUpperCase();
+      } else {
+        state.secondaryColor = hex;
+        document.getElementById('secondaryColorHex').value = hex.toUpperCase();
+      }
+      renderSignature();
+    }
+
+    function syncColorHex(target, hexVal) {
+      hexVal = hexVal.trim();
+      if (!hexVal.startsWith('#')) hexVal = '#' + hexVal;
+      if (/^#[0-9A-Fa-f]{6}$/.test(hexVal)) {
+        if (target === 'primary') {
+          state.primaryColor = hexVal;
+          document.getElementById('primaryColor').value = hexVal;
+        } else {
+          state.secondaryColor = hexVal;
+          document.getElementById('secondaryColor').value = hexVal;
+        }
+        renderSignature();
+      }
+    }
+
+    function setColor(target, hex) {
+      if (target === 'primary') {
+        document.getElementById('primaryColor').value = hex;
+        document.getElementById('primaryColorHex').value = hex.toUpperCase();
+        state.primaryColor = hex;
+      } else {
+        document.getElementById('secondaryColor').value = hex;
+        document.getElementById('secondaryColorHex').value = hex.toUpperCase();
+        state.secondaryColor = hex;
+      }
+      renderSignature();
+    }
+
+    // Size Slider Handlers
+    function updateSizeVal(sliderId, val, unit) {
+      document.getElementById('val_' + sliderId).textContent = val + unit;
+      const keyMap = {
+        sizePhoto: 'photo',
+        sizeLogo: 'logo',
+        sizeName: 'name',
+        sizeTitle: 'title',
+        sizeContact: 'contact',
+        sizeSocial: 'social',
+        sizeDivider: 'divider'
+      };
+      const key = keyMap[sliderId];
+      if (key) {
+        state.sizes[key] = parseInt(val, 10);
+      }
+      renderSignature();
+    }
+
+    function resetSizesToRecommended() {
+      state.sizes = { ...RECOMMENDED_SIZES };
+      document.getElementById('sizePhoto').value = RECOMMENDED_SIZES.photo;
+      document.getElementById('val_sizePhoto').textContent = RECOMMENDED_SIZES.photo + 'px';
+
+      document.getElementById('sizeLogo').value = RECOMMENDED_SIZES.logo;
+      document.getElementById('val_sizeLogo').textContent = RECOMMENDED_SIZES.logo + 'px';
+
+      document.getElementById('sizeName').value = RECOMMENDED_SIZES.name;
+      document.getElementById('val_sizeName').textContent = RECOMMENDED_SIZES.name + 'px';
+
+      document.getElementById('sizeTitle').value = RECOMMENDED_SIZES.title;
+      document.getElementById('val_sizeTitle').textContent = RECOMMENDED_SIZES.title + 'px';
+
+      document.getElementById('sizeContact').value = RECOMMENDED_SIZES.contact;
+      document.getElementById('val_sizeContact').textContent = RECOMMENDED_SIZES.contact + 'px';
+
+      document.getElementById('sizeSocial').value = RECOMMENDED_SIZES.social;
+      document.getElementById('val_sizeSocial').textContent = RECOMMENDED_SIZES.social + 'px';
+
+      document.getElementById('sizeDivider').value = RECOMMENDED_SIZES.divider;
+      document.getElementById('val_sizeDivider').textContent = RECOMMENDED_SIZES.divider + 'px';
+
+      renderSignature();
+      showToast('All sizes reset to recommended defaults!', 'info');
+    }
+
+    // Sample Data Loader
+    function loadSampleData() {
+      document.getElementById('fullName').value = 'Alex Morgan';
+      document.getElementById('jobTitle').value = 'Head of Digital Innovation';
+      document.getElementById('department').value = 'Technology Strategy Division';
+      document.getElementById('company').value = 'Apex Solutions International';
+      document.getElementById('phone').value = '+1 (555) 234-5678';
+      document.getElementById('email').value = 'alex.morgan@example.com';
+      document.getElementById('website').value = 'https://www.example.com';
+      document.getElementById('address').value = 'San Francisco, CA, USA';
+      document.getElementById('socialLinkedIn').value = 'https://linkedin.com';
+      document.getElementById('socialGithub').value = 'https://github.com';
+      document.getElementById('socialFacebook').value = 'https://facebook.com';
+      document.getElementById('socialTwitter').value = 'https://x.com';
+      document.getElementById('socialInstagram').value = '';
+      document.getElementById('socialYoutube').value = '';
+      document.getElementById('socialWhatsapp').value = '';
+      
+      document.getElementById('photoUrl').value = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=260&h=260&q=80';
+      document.getElementById('logoUrl').value = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=200&h=200&q=80';
+      state.customAvatarBase64 = '';
+      state.customLogoBase64 = '';
+      updatePhotoStatusPreview();
+      updateLogoStatusPreview();
+
+      renderSignature();
+      showToast('Sample data loaded!', 'success');
+    }
+
+    // Clear All Input Data
+    function clearAllData() {
+      const ids = [
+        'fullName','jobTitle','department','company','phone','email','website','address',
+        'socialLinkedIn','socialGithub','socialFacebook','socialTwitter','socialInstagram','socialYoutube','socialWhatsapp',
+        'photoUrl','logoUrl'
+      ];
+      ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = '';
+      });
+      state.customAvatarBase64 = '';
+      state.customLogoBase64 = '';
+      const pFin = document.getElementById('photoDirectFileInput');
+      if (pFin) pFin.value = '';
+      const lFin = document.getElementById('logoDirectFileInput');
+      if (lFin) lFin.value = '';
+      updatePhotoStatusPreview();
+      updateLogoStatusPreview();
+      renderSignature();
+      showToast('All fields cleared', 'info');
+    }
+
+    // Direct Upload & Removal Handlers for Photo & Logo
+    function handlePhotoUrlInput() {
+      state.customAvatarBase64 = '';
+      updatePhotoStatusPreview();
+      renderSignature();
+    }
+
+    function handleLogoUrlInput() {
+      state.customLogoBase64 = '';
+      updateLogoStatusPreview();
+      renderSignature();
+    }
+
+    function handleDirectPhotoUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        state.customAvatarBase64 = evt.target.result;
+        document.getElementById('photoUrl').value = '[Uploaded: ' + file.name + ']';
+        document.getElementById('showPhoto').checked = true;
+        updatePhotoStatusPreview();
+        renderSignature();
+        showToast('✅ Photo uploaded successfully!', 'success');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function removePhoto() {
+      state.customAvatarBase64 = '';
+      document.getElementById('photoUrl').value = '';
+      const fin = document.getElementById('photoDirectFileInput');
+      if (fin) fin.value = '';
+      updatePhotoStatusPreview();
+      renderSignature();
+      showToast('Photo removed', 'info');
+    }
+
+    function handleDirectLogoUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        state.customLogoBase64 = evt.target.result;
+        document.getElementById('logoUrl').value = '[Uploaded: ' + file.name + ']';
+        document.getElementById('showLogo').checked = true;
+        updateLogoStatusPreview();
+        renderSignature();
+        showToast('✅ Logo uploaded successfully!', 'success');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function removeLogo() {
+      state.customLogoBase64 = '';
+      document.getElementById('logoUrl').value = '';
+      const fin = document.getElementById('logoDirectFileInput');
+      if (fin) fin.value = '';
+      updateLogoStatusPreview();
+      renderSignature();
+      showToast('Logo removed', 'info');
+    }
+
+    function updatePhotoStatusPreview() {
+      const previewBox = document.getElementById('photoStatusPreview');
+      if (!previewBox) return;
+      const rawPhoto = state.customAvatarBase64 || document.getElementById('photoUrl').value.trim();
+      if (!rawPhoto) {
+        previewBox.style.display = 'none';
+        return;
+      }
+      previewBox.style.display = 'flex';
+      const thumb = document.getElementById('photoThumbImg');
+      const text = document.getElementById('photoStatusText');
+      const src = parseImageUrl(rawPhoto);
+      thumb.src = src;
+      thumb.dataset.triedUserContent = '';
+      text.innerHTML = '<span style="color:var(--text-subtle);">Verifying asset...</span>';
+
+      thumb.onload = function() {
+        text.innerHTML = '<span style="color:#10b981; font-weight:700;">✅ Photo active & visible</span>';
+      };
+      thumb.onerror = function() {
+        const driveId = extractDriveId(rawPhoto);
+        if (driveId && !thumb.dataset.triedUserContent) {
+          thumb.dataset.triedUserContent = '1';
+          thumb.src = 'https://drive.usercontent.google.com/download?id=' + driveId + '&export=view';
+          return;
+        }
+        text.innerHTML = '<span style="color:#ef4444; font-weight:700;">⚠️ Could not load image</span>'
+          + '<div style="font-size:11px; color:var(--text-muted); margin-top:2px;">Check Google Drive link permission ("Anyone with link") or click <strong>Upload</strong> to choose file from PC.</div>';
+      };
+    }
+
+    function updateLogoStatusPreview() {
+      const previewBox = document.getElementById('logoStatusPreview');
+      if (!previewBox) return;
+      const rawLogo = state.customLogoBase64 || document.getElementById('logoUrl').value.trim();
+      if (!rawLogo) {
+        previewBox.style.display = 'none';
+        return;
+      }
+      previewBox.style.display = 'flex';
+      const thumb = document.getElementById('logoThumbImg');
+      const text = document.getElementById('logoStatusText');
+      const src = parseImageUrl(rawLogo);
+      thumb.src = src;
+      thumb.dataset.triedUserContent = '';
+      text.innerHTML = '<span style="color:var(--text-subtle);">Verifying asset...</span>';
+
+      thumb.onload = function() {
+        text.innerHTML = '<span style="color:#10b981; font-weight:700;">✅ Logo active & visible</span>';
+      };
+      thumb.onerror = function() {
+        const driveId = extractDriveId(rawLogo);
+        if (driveId && !thumb.dataset.triedUserContent) {
+          thumb.dataset.triedUserContent = '1';
+          thumb.src = 'https://drive.usercontent.google.com/download?id=' + driveId + '&export=view';
+          return;
+        }
+        text.innerHTML = '<span style="color:#ef4444; font-weight:700;">⚠️ Could not load image</span>'
+          + '<div style="font-size:11px; color:var(--text-muted); margin-top:2px;">Check Google Drive link permission ("Anyone with link") or click <strong>Upload Logo</strong> to choose file from PC.</div>';
+      };
+    }
+
+    // ==================== PIXEL-PERFECT SIGNATURE ENGINE ====================
+    function buildSignatureHtml() {
+      const name = document.getElementById('fullName').value.trim();
+      const title = document.getElementById('jobTitle').value.trim();
+      const dept = document.getElementById('department').value.trim();
+      const comp = document.getElementById('company').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const web = document.getElementById('website').value.trim();
+      const addr = document.getElementById('address').value.trim();
+
+      const rawPhoto = state.customAvatarBase64 || document.getElementById('photoUrl').value.trim();
+      const photoSrc = parseImageUrl(rawPhoto);
+      const photoDriveId = extractDriveId(rawPhoto);
+
+      const rawLogo = state.customLogoBase64 || document.getElementById('logoUrl').value.trim();
+      const logoSrc = parseImageUrl(rawLogo);
+      const logoDriveId = extractDriveId(rawLogo);
+
+      const showPhoto = document.getElementById('showPhoto').checked && Boolean(photoSrc);
+      const showLogo = document.getElementById('showLogo').checked && Boolean(logoSrc);
+
+      const pColor = state.primaryColor || '#742F8A';
+      const sColor = state.secondaryColor || '#0152A1';
+      const font = document.getElementById('fontFamily').value;
+
+      // Sizes from state
+      const photoSize = state.sizes.photo || RECOMMENDED_SIZES.photo;
+      const logoSize = state.sizes.logo || RECOMMENDED_SIZES.logo;
+      const nameSize = state.sizes.name || RECOMMENDED_SIZES.name;
+      const titleSize = state.sizes.title || RECOMMENDED_SIZES.title;
+      const contactSize = state.sizes.contact || RECOMMENDED_SIZES.contact;
+      const socialSize = state.sizes.social || RECOMMENDED_SIZES.social;
+      const dividerW = state.sizes.divider || RECOMMENDED_SIZES.divider;
+
+      // Social Links (Including GitHub, WhatsApp, YouTube)
+      const socials = [
+        { url: document.getElementById('socialLinkedIn').value.trim(), icon: socialIcons.linkedin, label: 'LinkedIn' },
+        { url: document.getElementById('socialGithub').value.trim(), icon: socialIcons.github, label: 'GitHub' },
+        { url: document.getElementById('socialFacebook').value.trim(), icon: socialIcons.facebook, label: 'Facebook' },
+        { url: document.getElementById('socialTwitter').value.trim(), icon: socialIcons.twitter, label: 'X' },
+        { url: document.getElementById('socialInstagram').value.trim(), icon: socialIcons.instagram, label: 'Instagram' },
+        { url: document.getElementById('socialYoutube').value.trim(), icon: socialIcons.youtube, label: 'YouTube' },
+        { url: document.getElementById('socialWhatsapp').value.trim(), icon: socialIcons.whatsapp, label: 'WhatsApp' }
+      ].filter(s => Boolean(s.url));
+
+      // Build Contacts Rows with pixel-perfect column alignment
+      let contactRows = '';
+      if (phone) {
+        let telClean = phone.replace(/[^\d+]/g, '');
+        if (phone.includes('wa.me')) telClean = phone;
+        contactRows += `
+          <tr>
+            <td width="${contactSize + 6}" align="center" valign="middle" style="width:${contactSize + 6}px;padding:2px 8px 2px 0;color:${pColor};font-size:${contactSize}px;line-height:${contactSize + 4}px;font-family:${font};">&#9990;</td>
+            <td valign="middle" nowrap style="padding:2px 0;font-size:${contactSize}px;line-height:${contactSize + 5}px;color:#333333;font-family:${font};white-space:nowrap;">
+              <a href="tel:${escapeHtml(telClean)}" style="color:#333333;text-decoration:none;font-family:${font};">${escapeHtml(phone).replace(/ /g, '&nbsp;')}</a>
+            </td>
+          </tr>`;
+      }
+      if (email) {
+        contactRows += `
+          <tr>
+            <td width="${contactSize + 6}" align="center" valign="middle" style="width:${contactSize + 6}px;padding:2px 8px 2px 0;color:${pColor};font-size:${contactSize}px;line-height:${contactSize + 4}px;font-family:${font};">&#9993;</td>
+            <td valign="middle" nowrap style="padding:2px 0;font-size:${contactSize}px;line-height:${contactSize + 5}px;color:#333333;font-family:${font};white-space:nowrap;">
+              <a href="mailto:${escapeHtml(email)}" style="color:#333333;text-decoration:none;font-family:${font};">${escapeHtml(email)}</a>
+            </td>
+          </tr>`;
+      }
+      if (web) {
+        const webDisplay = web.replace(/^https?:\/\//i, '').replace(/\/$/, '');
+        contactRows += `
+          <tr>
+            <td width="${contactSize + 6}" align="center" valign="middle" style="width:${contactSize + 6}px;padding:2px 8px 2px 0;color:${pColor};font-size:${contactSize}px;line-height:${contactSize + 4}px;font-family:${font};">&#127760;</td>
+            <td valign="middle" nowrap style="padding:2px 0;font-size:${contactSize}px;line-height:${contactSize + 5}px;color:#333333;font-family:${font};white-space:nowrap;">
+              <a href="${escapeHtml(web)}" target="_blank" style="color:#333333;text-decoration:none;font-family:${font};">${escapeHtml(webDisplay)}</a>
+            </td>
+          </tr>`;
+      }
+      if (addr) {
+        contactRows += `
+          <tr>
+            <td width="${contactSize + 6}" align="center" valign="middle" style="width:${contactSize + 6}px;padding:2px 8px 2px 0;color:${pColor};font-size:${contactSize}px;line-height:${contactSize + 4}px;font-family:${font};">&#128205;</td>
+            <td valign="middle" nowrap style="padding:2px 0;font-size:${contactSize}px;line-height:${contactSize + 5}px;color:#333333;font-family:${font};white-space:nowrap;">
+              ${escapeHtml(addr).replace(/ /g, '&nbsp;')}
+            </td>
+          </tr>`;
+      }
+
+      // Build Social Icons Row with exact horizontal alignment
+      let socialHtml = '';
+      if (socials.length > 0) {
+        socialHtml = `
+          <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin-top:8px;">
+            <tr>
+              ${socials.map((s, idx) => `
+                <td valign="middle">
+                  <a href="${escapeHtml(s.url)}" target="_blank" style="display:inline-block;text-decoration:none;">
+                    <img src="${s.icon}" width="${socialSize}" height="${socialSize}" alt="${escapeHtml(s.label)}" style="display:block;border:0;width:${socialSize}px;height:${socialSize}px;">
+                  </a>
+                </td>
+                ${idx < socials.length - 1 ? '<td width="8" style="width:8px;font-size:0;">&nbsp;</td>' : ''}
+              `).join('')}
+            </tr>
+          </table>`;
+      }
+
+      // Profile Photo TD
+      const photoHtml = showPhoto ? `
+        <td valign="middle" align="center" style="padding:0 18px 0 0;">
+          <img class="sig-photo-img" src="${escapeHtml(photoSrc)}" ${photoDriveId ? `data-drive-id="${photoDriveId}" onerror="handleImgError(this)"` : ''} width="${photoSize}" height="${photoSize}" alt="${escapeHtml(name || 'Profile')}" style="display:block;width:${photoSize}px;height:${photoSize}px;border-radius:50%;object-fit:cover;border:0;">
+        </td>` : '';
+
+      // Logo TD
+      const logoHtml = showLogo ? `
+        <td valign="middle" align="center" style="padding:0 0 0 18px;">
+          <img class="sig-logo-img" src="${escapeHtml(logoSrc)}" ${logoDriveId ? `data-drive-id="${logoDriveId}" onerror="handleImgError(this)"` : ''} width="${logoSize}" alt="${escapeHtml(comp || 'Logo')}" style="display:block;max-width:${logoSize}px;width:${logoSize}px;height:auto;border:0;">
+        </td>` : '';
+
+      // Text elements with calculated typographic hierarchy
+      const displayName = name ? escapeHtml(name) : '<span style="color:#94a3b8;">Your Full Name</span>';
+      const displayTitle = title ? escapeHtml(title) : '<span style="color:#94a3b8;">Your Professional Title</span>';
+      const displayDept = dept ? `<div style="font-family:${font};font-size:${titleSize - 1}px;font-weight:600;color:${sColor};letter-spacing:.3px;line-height:${titleSize + 4}px;white-space:nowrap;">${escapeHtml(dept)}</div>` : '';
+      const displayComp = comp ? `<div style="font-family:${font};font-size:${titleSize - 1}px;color:#475569;line-height:${titleSize + 4}px;white-space:nowrap;">${escapeHtml(comp)}</div>` : '';
+
+      // Dynamic colSpan count for Layout 2
+      const colSpanCount = (showPhoto ? 1 : 0) + 1 + (showLogo ? 1 : 0);
+
+      // ==================== 6 TOP-TIER PIXEL-PERFECT LAYOUTS ====================
+
+      if (state.layout === 'banner') {
+        // Layout 2: Modern Top Banner
+        return `
+<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:${font};">
+  <tr>
+    <td colspan="${colSpanCount}" style="padding:0 0 8px 0;border-bottom:${dividerW}px solid ${pColor};">
+      <div style="font-family:${font};font-size:${nameSize}px;font-weight:bold;color:${pColor};letter-spacing:.5px;line-height:${nameSize + 4}px;white-space:nowrap;">${displayName}</div>
+      <div style="font-family:${font};font-size:${titleSize}px;font-weight:bold;color:${sColor};letter-spacing:.4px;line-height:${titleSize + 5}px;padding-top:3px;white-space:nowrap;">${displayTitle}</div>
+      ${displayDept}
+      ${displayComp}
+    </td>
+  </tr>
+  <tr>
+    ${showPhoto ? `
+    <td valign="middle" align="center" style="padding:12px 18px 0 0;">
+      <img class="sig-photo-img" src="${escapeHtml(photoSrc)}" ${photoDriveId ? `data-drive-id="${photoDriveId}" onerror="handleImgError(this)"` : ''} width="${photoSize}" height="${photoSize}" alt="${escapeHtml(name || 'Profile')}" style="display:block;width:${photoSize}px;height:${photoSize}px;border-radius:50%;object-fit:cover;border:0;">
+    </td>` : ''}
+    <td valign="middle" nowrap style="padding:12px 18px 0 0;white-space:nowrap;">
+      ${contactRows ? `<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin-bottom:2px;">${contactRows}</table>` : ''}
+      ${socialHtml}
+    </td>
+    ${showLogo ? `
+    <td valign="middle" align="center" style="padding:12px 0 0 18px;">
+      <img class="sig-logo-img" src="${escapeHtml(logoSrc)}" ${logoDriveId ? `data-drive-id="${logoDriveId}" onerror="handleImgError(this)"` : ''} width="${logoSize}" alt="${escapeHtml(comp || 'Logo')}" style="display:block;max-width:${logoSize}px;width:${logoSize}px;height:auto;border:0;">
+    </td>` : ''}
+  </tr>
+</table>`;
+
+      } else if (state.layout === 'stripe') {
+        // Layout 3: Corporate Left Stripe
+        return `
+<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:${font};">
+  <tr>
+    <td width="${dividerW + 3}" style="width:${dividerW + 3}px;background:${pColor};border-radius:4px;padding:0;font-size:0;">&nbsp;</td>
+    ${showPhoto ? `
+    <td valign="middle" align="center" style="padding:0 18px 0 16px;">
+      <img class="sig-photo-img" src="${escapeHtml(photoSrc)}" ${photoDriveId ? `data-drive-id="${photoDriveId}" onerror="handleImgError(this)"` : ''} width="${photoSize}" height="${photoSize}" alt="${escapeHtml(name || 'Profile')}" style="display:block;width:${photoSize}px;height:${photoSize}px;border-radius:50%;object-fit:cover;border:0;">
+    </td>` : ''}
+    <td valign="middle" style="padding:2px 18px 2px ${showPhoto ? '0' : '16px'};white-space:nowrap;">
+      <div style="font-family:${font};font-size:${nameSize}px;font-weight:bold;color:${pColor};letter-spacing:.5px;line-height:${nameSize + 4}px;white-space:nowrap;">${displayName}</div>
+      <div style="font-family:${font};font-size:${titleSize}px;font-weight:bold;color:${sColor};letter-spacing:.4px;line-height:${titleSize + 4}px;padding:2px 0 5px 0;white-space:nowrap;">${displayTitle}</div>
+      ${displayDept}
+      ${displayComp ? `<div style="margin-bottom:6px;">${displayComp}</div>` : ''}
+      ${contactRows ? `<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin-bottom:2px;">${contactRows}</table>` : ''}
+      ${socialHtml}
+    </td>
+    ${logoHtml}
+  </tr>
+</table>`;
+
+      } else if (state.layout === 'compact') {
+        // Layout 4: Sleek Minimalist
+        return `
+<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:${font};">
+  <tr>
+    ${showPhoto ? `
+    <td valign="middle" align="center" style="padding:0 14px 0 0;">
+      <img class="sig-photo-img" src="${escapeHtml(photoSrc)}" ${photoDriveId ? `data-drive-id="${photoDriveId}" onerror="handleImgError(this)"` : ''} width="${photoSize}" height="${photoSize}" alt="${escapeHtml(name || 'Profile')}" style="display:block;width:${photoSize}px;height:${photoSize}px;border-radius:50%;object-fit:cover;border:0;">
+    </td>` : ''}
+    <td valign="middle" style="padding:0 ${showLogo ? '16px' : '0'} 0 0;white-space:nowrap;">
+      <div style="font-family:${font};font-size:${nameSize}px;font-weight:bold;color:${pColor};line-height:${nameSize + 3}px;white-space:nowrap;">${displayName}</div>
+      <div style="font-family:${font};font-size:${titleSize}px;font-weight:600;color:${sColor};line-height:${titleSize + 4}px;margin:2px 0 6px 0;white-space:nowrap;">${displayTitle}${comp ? ' &bull; ' + escapeHtml(comp) : ''}</div>
+      ${dept ? `<div style="font-family:${font};font-size:${titleSize - 1}px;color:#475569;margin-bottom:4px;white-space:nowrap;">${escapeHtml(dept)}</div>` : ''}
+      ${contactRows ? `<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin-bottom:2px;">${contactRows}</table>` : ''}
+      ${socialHtml}
+    </td>
+    ${logoHtml}
+  </tr>
+</table>`;
+
+      } else if (state.layout === 'card') {
+        // Layout 5: Badge Card (Boxed Horizontal)
+        const hasMedia = showPhoto || showLogo;
+        return `
+<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:${font};border:1px solid #e2e8f0;border-radius:10px;background:#ffffff;">
+  <tr>
+    ${hasMedia ? `
+    <td style="padding:14px 18px 14px 16px;border-right:${dividerW}px solid ${pColor};" valign="middle" align="center">
+      ${showPhoto ? `
+        <img class="sig-photo-img" src="${escapeHtml(photoSrc)}" ${photoDriveId ? `data-drive-id="${photoDriveId}" onerror="handleImgError(this)"` : ''} width="${photoSize}" height="${photoSize}" alt="${escapeHtml(name || 'Profile')}" style="display:block;width:${photoSize}px;height:${photoSize}px;border-radius:50%;object-fit:cover;border:0;">
+      ` : ''}
+      ${showLogo ? `
+        <div style="margin-top:${showPhoto ? '10px' : '0'};">
+          <img class="sig-logo-img" src="${escapeHtml(logoSrc)}" ${logoDriveId ? `data-drive-id="${logoDriveId}" onerror="handleImgError(this)"` : ''} width="${logoSize}" alt="Logo" style="display:block;max-width:${logoSize}px;width:${logoSize}px;height:auto;border:0;">
+        </div>
+      ` : ''}
+    </td>` : ''}
+    <td style="padding:14px 20px 14px 18px;" valign="middle">
+      <div style="font-family:${font};font-size:${nameSize}px;font-weight:bold;color:${pColor};line-height:${nameSize + 4}px;white-space:nowrap;">${displayName}</div>
+      <div style="font-family:${font};font-size:${titleSize}px;font-weight:bold;color:${sColor};line-height:${titleSize + 4}px;padding:3px 0 6px 0;white-space:nowrap;">${displayTitle}</div>
+      ${displayDept}
+      ${displayComp ? `<div style="margin-bottom:6px;">${displayComp}</div>` : ''}
+      ${contactRows ? `<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin-bottom:2px;">${contactRows}</table>` : ''}
+      ${socialHtml}
+    </td>
+  </tr>
+</table>`;
+
+      } else if (state.layout === 'centered') {
+        // Layout 6: Centered Formal / Academic
+        return `
+<table cellpadding="0" cellspacing="0" border="0" align="center" style="border-collapse:collapse;font-family:${font};text-align:center;">
+  ${showPhoto ? `
+  <tr>
+    <td align="center" style="padding-bottom:10px;">
+      <img class="sig-photo-img" src="${escapeHtml(photoSrc)}" ${photoDriveId ? `data-drive-id="${photoDriveId}" onerror="handleImgError(this)"` : ''} width="${photoSize}" height="${photoSize}" alt="${escapeHtml(name || 'Profile')}" style="display:block;margin:0 auto;width:${photoSize}px;height:${photoSize}px;border-radius:50%;object-fit:cover;border:0;">
+    </td>
+  </tr>` : ''}
+  <tr>
+    <td align="center" style="padding-bottom:6px;">
+      <div style="font-family:${font};font-size:${nameSize}px;font-weight:bold;color:${pColor};letter-spacing:.5px;line-height:${nameSize + 4}px;">${displayName}</div>
+      <div style="font-family:${font};font-size:${titleSize}px;font-weight:bold;color:${sColor};letter-spacing:.4px;line-height:${titleSize + 4}px;padding-top:2px;">${displayTitle}</div>
+      ${dept ? `<div style="font-family:${font};font-size:${titleSize - 1}px;font-weight:600;color:${sColor};">${escapeHtml(dept)}</div>` : ''}
+      ${comp ? `<div style="font-family:${font};font-size:${titleSize - 1}px;color:#475569;">${escapeHtml(comp)}</div>` : ''}
+    </td>
+  </tr>
+  ${contactRows ? `
+  <tr>
+    <td align="center" style="padding:4px 0 8px 0;">
+      <table cellpadding="0" cellspacing="0" border="0" align="center" style="border-collapse:collapse;margin:0 auto;">
+        ${contactRows}
+      </table>
+    </td>
+  </tr>` : ''}
+  ${socials.length > 0 ? `
+  <tr>
+    <td align="center" style="padding-bottom:8px;">
+      <table cellpadding="0" cellspacing="0" border="0" align="center" style="border-collapse:collapse;margin:0 auto;">
+        <tr>
+          ${socials.map((s, idx) => `
+            <td valign="middle">
+              <a href="${escapeHtml(s.url)}" target="_blank" style="display:inline-block;text-decoration:none;">
+                <img src="${s.icon}" width="${socialSize}" height="${socialSize}" alt="${escapeHtml(s.label)}" style="display:block;border:0;width:${socialSize}px;height:${socialSize}px;">
+              </a>
+            </td>
+            ${idx < socials.length - 1 ? '<td width="8" style="width:8px;font-size:0;">&nbsp;</td>' : ''}
+          `).join('')}
+        </tr>
+      </table>
+    </td>
+  </tr>` : ''}
+  ${showLogo ? `
+  <tr>
+    <td align="center" style="padding-top:8px;">
+      <img class="sig-logo-img" src="${escapeHtml(logoSrc)}" ${logoDriveId ? `data-drive-id="${logoDriveId}" onerror="handleImgError(this)"` : ''} width="${logoSize}" alt="Logo" style="display:block;margin:0 auto;max-width:${logoSize}px;width:${logoSize}px;height:auto;border:0;">
+    </td>
+  </tr>` : ''}
+</table>`;
+
+      } else {
+        // Layout 1: Side-by-Side (Classic Executive)
+        return `
+<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:${font};">
+  <tr>
+    ${photoHtml}
+    <td valign="middle" style="padding:2px 20px 2px ${showPhoto ? '18px' : '0'};${showPhoto ? `border-left:${dividerW}px solid ${pColor};` : ''}white-space:nowrap;">
+      <div style="font-family:${font};font-size:${nameSize}px;font-weight:bold;color:${pColor};letter-spacing:.5px;line-height:${nameSize + 4}px;white-space:nowrap;">${displayName}</div>
+      <div style="font-family:${font};font-size:${titleSize}px;font-weight:bold;color:${sColor};letter-spacing:.4px;line-height:${titleSize + 4}px;padding:3px 0 6px 0;white-space:nowrap;">${displayTitle}</div>
+      ${displayDept}
+      ${displayComp ? `<div style="margin-bottom:6px;">${displayComp}</div>` : ''}
+      ${contactRows ? `<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin-bottom:2px;">${contactRows}</table>` : ''}
+      ${socialHtml}
+    </td>
+    ${logoHtml}
+  </tr>
+</table>`;
+      }
+    }
+
+    // Render Preview
+    function renderSignature() {
+      const container = document.getElementById('previewArea');
+      container.innerHTML = buildSignatureHtml();
+    }
+
+    // Copy to Clipboard (Formatted Rich Text)
+    async function copySignatureToClipboard() {
+      renderSignature();
+      const previewEl = document.getElementById('previewArea');
+
+      try {
+        if (navigator.clipboard && window.ClipboardItem) {
+          const htmlBlob = new Blob([previewEl.innerHTML], { type: 'text/html' });
+          const textBlob = new Blob([previewEl.innerText], { type: 'text/plain' });
+          const item = new ClipboardItem({
+            'text/html': htmlBlob,
+            'text/plain': textBlob
+          });
+          await navigator.clipboard.write([item]);
+          showToast('⚡ Signature Copied! Paste (Ctrl+V) directly into Gmail.', 'success');
+          return;
+        }
+      } catch (err) {
+        console.warn('ClipboardItem failed, using fallback range selection:', err);
+      }
+
+      // Fallback selection copy
+      try {
+        const range = document.createRange();
+        range.selectNodeContents(previewEl);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        const successful = document.execCommand('copy');
+        sel.removeAllRanges();
+
+        if (successful) {
+          showToast('⚡ Signature Copied! Paste (Ctrl+V) directly into Gmail.', 'success');
+        } else {
+          showToast('⚠️ Please select the signature preview and press Ctrl+C to copy.', 'info');
+        }
+      } catch (err) {
+        showToast('⚠️ Could not copy automatically. Please select preview & press Ctrl+C.', 'info');
+      }
+    }
+
+    // Copy Raw HTML Source
+    function copyHtmlSource() {
+      const html = buildSignatureHtml();
+      navigator.clipboard.writeText(html).then(() => {
+        showToast('HTML code copied to clipboard!', 'success');
+      }).catch(() => {
+        prompt('Copy the HTML signature code below:', html);
+      });
+    }
+
+    // Download Standalone Signature .html File
+    function downloadHtmlSignatureFile() {
+      const html = buildSignatureHtml();
+      const doc = `<!DOCTYPE html><html><head><meta charset="utf-8"><title>Email Signature</title></head><body style="margin:20px;">${html}</body></html>`;
+      const blob = new Blob([doc], { type: 'text/html' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'email-signature.html';
+      a.click();
+      showToast('Downloaded email-signature.html!', 'success');
+    }
+
+    // Animated Toast Notification Helper
+    function showToast(msg, type = 'success') {
+      const toast = document.getElementById('toastNotification');
+      const text = document.getElementById('toastMessage');
+      text.textContent = msg;
+      toast.className = 'toast ' + (type === 'success' ? 'toast-success' : '');
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3500);
+    }
+
+    // Bind real-time input listeners
+    const inputIds = [
+      'fullName', 'jobTitle', 'department', 'company',
+      'phone', 'email', 'website', 'address',
+      'photoUrl', 'logoUrl',
+      'socialLinkedIn', 'socialGithub', 'socialFacebook', 'socialTwitter', 'socialInstagram', 'socialYoutube', 'socialWhatsapp'
+    ];
+    inputIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('input', renderSignature);
+    });
+
+
+    // ==================== ROUND PHOTO CROPPER LOGIC ====================
+    const canvas = document.getElementById('avatarCanvas');
+    const ctx = canvas.getContext('2d');
+    const CANVAS_SIZE = 600;
+    const RING_THICKNESS = 18;
+
+    let cropperImage = null;
+    let baseScale = 1;
+    let zoomLevel = 1;
+    let offsetX = 0;
+    let offsetY = 0;
+    let currentBorderTheme = 'rosegold';
+    let isDragging = false;
+    let dragStart = { x: 0, y: 0, ox: 0, oy: 0 };
+
+    function drawAvatar(targetCanvas, size) {
+      const scale = size / CANVAS_SIZE;
+      const tCtx = targetCanvas.getContext('2d');
+      tCtx.clearRect(0, 0, size, size);
+      tCtx.save();
+      tCtx.scale(scale, scale);
+
+      // Draw Chosen Border Ring
+      if (currentBorderTheme !== 'none') {
+        let fillStyle = '#ffffff';
+        if (currentBorderTheme === 'rosegold') {
+          const g = tCtx.createLinearGradient(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+          g.addColorStop(0, '#F6CDC6');
+          g.addColorStop(0.3, '#CD8484');
+          g.addColorStop(0.55, '#B76E79');
+          g.addColorStop(0.8, '#E8AAA0');
+          g.addColorStop(1, '#9C5B63');
+          fillStyle = g;
+        } else if (currentBorderTheme === 'gold') {
+          const g = tCtx.createLinearGradient(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+          g.addColorStop(0, '#FFE082');
+          g.addColorStop(0.35, '#FFB300');
+          g.addColorStop(0.7, '#FFA000');
+          g.addColorStop(1, '#FFD54F');
+          fillStyle = g;
+        } else if (currentBorderTheme === 'purple') {
+          const g = tCtx.createLinearGradient(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+          g.addColorStop(0, '#A855F7');
+          g.addColorStop(0.5, '#742F8A');
+          g.addColorStop(1, '#4C1D95');
+          fillStyle = g;
+        } else if (currentBorderTheme === 'blue') {
+          const g = tCtx.createLinearGradient(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+          g.addColorStop(0, '#38BDF8');
+          g.addColorStop(0.5, '#0284C7');
+          g.addColorStop(1, '#0152A1');
+          fillStyle = g;
+        } else if (currentBorderTheme === 'silver') {
+          const g = tCtx.createLinearGradient(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+          g.addColorStop(0, '#F1F5F9');
+          g.addColorStop(0.5, '#94A3B8');
+          g.addColorStop(1, '#475569');
+          fillStyle = g;
+        } else if (currentBorderTheme === 'solid') {
+          fillStyle = state.primaryColor || '#742F8A';
+        }
+
+        tCtx.beginPath();
+        tCtx.arc(CANVAS_SIZE / 2, CANVAS_SIZE / 2, CANVAS_SIZE / 2, 0, Math.PI * 2);
+        tCtx.fillStyle = fillStyle;
+        tCtx.fill();
+      }
+
+      // Draw Cropped Photo
+      tCtx.save();
+      const innerRadius = (currentBorderTheme === 'none') ? (CANVAS_SIZE / 2) : (CANVAS_SIZE / 2 - RING_THICKNESS);
+      tCtx.beginPath();
+      tCtx.arc(CANVAS_SIZE / 2, CANVAS_SIZE / 2, innerRadius, 0, Math.PI * 2);
+      tCtx.clip();
+
+      if (cropperImage) {
+        const sc = baseScale * zoomLevel;
+        const w = cropperImage.width * sc;
+        const h = cropperImage.height * sc;
+        tCtx.drawImage(cropperImage, CANVAS_SIZE / 2 - w / 2 + offsetX, CANVAS_SIZE / 2 - h / 2 + offsetY, w, h);
+      } else {
+        tCtx.fillStyle = 'rgba(255, 255, 255, 0.05)';
+        tCtx.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+
+        tCtx.fillStyle = 'rgba(255, 255, 255, 0.15)';
+        tCtx.beginPath();
+        tCtx.arc(CANVAS_SIZE / 2, CANVAS_SIZE / 2 - 30, 60, 0, Math.PI * 2);
+        tCtx.fill();
+        tCtx.beginPath();
+        tCtx.arc(CANVAS_SIZE / 2, CANVAS_SIZE / 2 + 150, 120, 0, Math.PI * 2);
+        tCtx.fill();
+      }
+      tCtx.restore();
+      tCtx.restore();
+    }
+
+    function clampOffsets() {
+      if (!cropperImage) return;
+      const sc = baseScale * zoomLevel;
+      const w = cropperImage.width * sc;
+      const h = cropperImage.height * sc;
+      const inner = CANVAS_SIZE - 2 * RING_THICKNESS;
+      const mx = Math.max(0, (w - inner) / 2);
+      const my = Math.max(0, (h - inner) / 2);
+      offsetX = Math.max(-mx, Math.min(mx, offsetX));
+      offsetY = Math.max(-my, Math.min(my, offsetY));
+    }
+
+    function renderCanvas() {
+      if (cropperImage) clampOffsets();
+      drawAvatar(canvas, CANVAS_SIZE);
+    }
+
+    function handleImageUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        const im = new Image();
+        im.onload = function() {
+          cropperImage = im;
+          const inner = CANVAS_SIZE - 2 * RING_THICKNESS;
+          baseScale = Math.max(inner / im.width, inner / im.height);
+          zoomLevel = 1;
+          offsetX = 0;
+          offsetY = 0;
+          
+          document.getElementById('zoomRange').disabled = false;
+          document.getElementById('zoomRange').value = 1;
+          document.getElementById('zoomVal').textContent = '1.0x';
+          document.getElementById('btnApplyToSig').disabled = false;
+          document.getElementById('btnDownload300').disabled = false;
+          document.getElementById('btnDownload600').disabled = false;
+
+          renderCanvas();
+        };
+        im.src = evt.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function handleZoomInput(val) {
+      zoomLevel = parseFloat(val);
+      document.getElementById('zoomVal').textContent = zoomLevel.toFixed(1) + 'x';
+      renderCanvas();
+    }
+
+    function setBorderTheme(theme) {
+      currentBorderTheme = theme;
+      document.querySelectorAll('.border-badge').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+      renderCanvas();
+    }
+
+    // Canvas Mouse / Touch Gestures
+    canvas.addEventListener('pointerdown', (e) => {
+      if (!cropperImage) return;
+      isDragging = true;
+      dragStart = { x: e.clientX, y: e.clientY, ox: offsetX, oy: offsetY };
+      canvas.setPointerCapture(e.pointerId);
+    });
+    canvas.addEventListener('pointermove', (e) => {
+      if (!isDragging) return;
+      const k = CANVAS_SIZE / canvas.getBoundingClientRect().width;
+      offsetX = dragStart.ox + (e.clientX - dragStart.x) * k;
+      offsetY = dragStart.oy + (e.clientY - dragStart.y) * k;
+      renderCanvas();
+    });
+    canvas.addEventListener('pointerup', () => { isDragging = false; });
+    canvas.addEventListener('pointercancel', () => { isDragging = false; });
+    canvas.addEventListener('wheel', (e) => {
+      if (!cropperImage) return;
+      e.preventDefault();
+      zoomLevel = Math.max(1, Math.min(4, zoomLevel + (e.deltaY < 0 ? 0.08 : -0.08)));
+      document.getElementById('zoomRange').value = zoomLevel;
+      document.getElementById('zoomVal').textContent = zoomLevel.toFixed(1) + 'x';
+      renderCanvas();
+    }, { passive: false });
+
+    // Download Avatar PNG
+    function downloadCroppedAvatar(dim) {
+      if (!cropperImage) return;
+      const outCanvas = document.createElement('canvas');
+      outCanvas.width = dim;
+      outCanvas.height = dim;
+      outCanvas.getContext('2d').imageSmoothingQuality = 'high';
+      drawAvatar(outCanvas, dim);
+
+      outCanvas.toBlob((blob) => {
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `avatar-round-${dim}x${dim}.png`;
+        a.click();
+        showToast(`Downloaded PNG (${dim}×${dim})!`, 'success');
+      }, 'image/png');
+    }
+
+    // Apply Cropped Image to Signature Directly
+    function applyCroppedPhotoToSignature() {
+      if (!cropperImage) return;
+      const outCanvas = document.createElement('canvas');
+      outCanvas.width = 300;
+      outCanvas.height = 300;
+      drawAvatar(outCanvas, 300);
+      const dataUrl = outCanvas.toDataURL('image/png');
+
+      state.customAvatarBase64 = dataUrl;
+      document.getElementById('photoUrl').value = '[Cropped Round Avatar Applied]';
+      document.getElementById('showPhoto').checked = true;
+
+      updatePhotoStatusPreview();
+      switchTab('generator');
+      renderSignature();
+      showToast('Cropped avatar applied to signature!', 'success');
+    }
+
+    // Initial Render & Setup (Always strictly starts in Light Mode on load/refresh)
+    document.documentElement.setAttribute('data-theme', 'light');
+    const sunIcon = document.getElementById('themeIconSun');
+    const moonIcon = document.getElementById('themeIconMoon');
+    const toggleBtn = document.querySelector('.theme-toggle-btn');
+    if (sunIcon) sunIcon.style.display = 'none';
+    if (moonIcon) moonIcon.style.display = 'block';
+    if (toggleBtn) toggleBtn.setAttribute('title', 'Switch to Cyber Dark Mode');
+
+    renderSignature();
+    renderCanvas();
+  </script>
+</body>
+</html>
