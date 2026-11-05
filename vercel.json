@@ -4,7 +4,7 @@
   "routes": [
     { "src": "/pic", "dest": "/Pic.html" },
     { "src": "/others", "dest": "/others.html" },
-    { "src": "/muna", "dest": "/muna.html" },
+    { "src": "/home", "dest": "/home.html" },
     { "src": "/(.*)", "dest": "/$1" }
   ]
 }
